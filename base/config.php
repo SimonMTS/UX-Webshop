@@ -6,7 +6,7 @@
             'action' => 'home'
         ],
 
-        'base_url' => 'http://localhost/uxxx/',
+        'base_url' => 'http://localhost/UX-Webshop/',
         'DataBaseName' => "uxxx"
     ];
 ?>

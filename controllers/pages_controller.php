@@ -9,8 +9,6 @@
                 $name = 'bezoeker';
             }
 
-            var_dump( Sql::Delete('user', 'name', 'test1') );exit;
-
             Base::Render('pages/home.php', [
                 'name' => $name
             ]);
