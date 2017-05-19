@@ -27,7 +27,7 @@
             return htmlentities($string);
         }
 
-        public static function Genetate_id($string) {
+        public static function Genetate_id() {
             return str_replace('.', '', uniqid('', true));;
         }
 

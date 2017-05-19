@@ -16,11 +16,6 @@
 		
     </head>
     <body>
-        <?php if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) : ?>
-            <div id="admin">
-                <a class="float-left">Admin</a>
-            </div>
-        <?php endif; ?>
 
 	<nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -43,7 +38,7 @@
 					<?php if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] > 1) : ?>
 						<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/overview">Gebruikers</a></li>
 					<?php endif; ?>
-					<?php if (!isset($_SESSION['user']['_id'])) : ?>
+					<?php if (!isset($_SESSION['user']['id'])) : ?>
 						<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/login">Login</a></li>
 					<?php else : ?>
 						<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/logout">Logout(<?=$_SESSION['user']['name'] ?>)</a></li>
