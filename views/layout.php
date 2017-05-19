@@ -9,13 +9,14 @@
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
         <link rel="shortcut icon" href="favicon.ico" />
 		<link rel="icon" href="<?= $GLOBALS['config']['base_url'] ?>assets/favicon.ico" type="image/x-icon" />
-        <title>de Regenboog</title>
+        <title><?=$Cvar['page_title'] ?></title>
     </head>
     <body>
         <?php if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) : ?>
             <div id="admin">
                 <style> div#main-body { min-height: calc(100vh - 86px) !important; } </style>
                 <a class="float-left">Admin</a>
+                <a class="float-left" href="<?= $GLOBALS['config']['base_url'] ?>users/overview">Overview</a>
             </div>
         <?php endif; ?>
 
@@ -25,15 +26,12 @@
             <a class="float-left" href="<?= $GLOBALS['config']['base_url'] ?>">Home</a>
             <a class="float-left" href="<?= $GLOBALS['config']['base_url'] ?>pages/faq">FAQ</a>
 
-            <?php if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] > 1) : ?>
-                <a class="float-left" href="<?= $GLOBALS['config']['base_url'] ?>users/overview">Gebruikers</a>
-            <?php endif; ?>
-
-            <?php if (!isset($_SESSION['user']['_id'])) : ?>
+            <?php if (!isset($_SESSION['user']['id'])) : ?>
                 <a class="float-right" href="<?= $GLOBALS['config']['base_url'] ?>users/login">Login</a>
+                <a class="float-right" href="<?= $GLOBALS['config']['base_url'] ?>users/create">Register</a>
             <?php else : ?>
                 <a class="float-right" href="<?= $GLOBALS['config']['base_url'] ?>users/logout">Logout(<?=$_SESSION['user']['name'] ?>)</a>
-                <a class="float-right" href="<?= $GLOBALS['config']['base_url'] ?>users/view">Portfolio</a>
+                <a class="float-right" href="<?= $GLOBALS['config']['base_url'] ?>users/view">Account</a>
             <?php endif; ?>
         </header>
 

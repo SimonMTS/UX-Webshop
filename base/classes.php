@@ -14,11 +14,25 @@
         }
 
         public static function Render( $view, $Cvar = null ) {
+            if ( !isset($Cvar['page_title']) ) {
+                $Cvar['page_title'] = $GLOBALS['config']['Default_Title'];
+            }
+            
+            $view = $view . '.php';
+
             require_once('views/layout.php');
         }
 
         public static function Sanitize($string) {
             return htmlentities($string);
+        }
+
+        public static function Genetate_id($string) {
+            return str_replace('.', '', uniqid('', true));;
+        }
+
+        public static function Hash_String($string) {
+            return hash('sha512', $string);
         }
     }
 
@@ -41,7 +55,7 @@
             try {
                 $req = $db->prepare("SELECT * FROM $table WHERE $row = :where");
                 $req->execute([':where' => $where]);
-                $res = $req->fetch();   
+                $res = $req->fetchall();
             } catch( PDOException $Exception ) {
                 return $Exception->getMessage();
             }

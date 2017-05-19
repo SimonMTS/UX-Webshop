@@ -9,17 +9,14 @@
                 $name = 'bezoeker';
             }
 
-            Base::Render('pages/home.php', [
+            Base::Render('pages/home', [
+                'page_title' => 'Home',
                 'name' => $name
             ]);
         }
 
         public function error() {
-            Base::Render('pages/error.php');
+            Base::Render('pages/error');
         }
-
-        // public function faq() {
-        //     require_once('views/pages/faq.php');
-        // }
     }
 ?>
