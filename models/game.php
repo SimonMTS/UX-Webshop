@@ -10,6 +10,9 @@
         public function __construct($id, $name) {
             $this->id = $id;
             $this->name = $name;
+            $this->price = $price;
+            $this->desc = $desc;
+            $this->cover = $cover;
         }
 
         public static function all() {
@@ -21,11 +24,18 @@
 
             if (
                 isset($result[0]['id']) &&
-                isset($result[0]['name'])
+                isset($result[0]['name']) &&
+                isset($result[0]['price']) &&
+                isset($result[0]['desc']) &&
+                isset($result[0]['cover'])
             ) {
                 return new User(
                     $result[0]['id'],
-                    $result[0]['name']);
+                    $result[0]['name'],
+                    $result[0]['price'],
+                    $result[0]['desc'],
+                    $result[0]['cover']
+                );
             } else {
                 return false;
             }
@@ -37,11 +47,18 @@
 
             if (
                 isset($result[0]['id']) &&
-                isset($result[0]['name'])
+                isset($result[0]['name']) &&
+                isset($result[0]['price']) &&
+                isset($result[0]['desc']) &&
+                isset($result[0]['cover'])
             ) {
                 return new User(
                     $result[0]['id'],
-                    $result[0]['name']);
+                    $result[0]['name'],
+                    $result[0]['price'],
+                    $result[0]['desc'],
+                    $result[0]['cover']
+                );
             } else {
                 return $result;
             }
@@ -51,14 +68,20 @@
             if ( !self::find($this->id) ) {
                 Sql::Save('game', [
                     'id' => $this->id,
-                    'name' => $this->name
+                    'name' => $this->name,
+                    'price' => $this->price,
+                    'desc' => $this->desc,
+                    'cover' => $this->cover
                 ]);
 
                 return true;
             } else {
                 Sql::Update('game', 'id', $this->id, [
                     'id' => $this->id,
-                    'name' => $this->name
+                    'name' => $this->name,
+                    'price' => $this->price,
+                    'desc' => $this->desc,
+                    'cover' => $this->cover
                 ]);
 
                 return true;

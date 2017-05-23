@@ -57,10 +57,11 @@
 
         }
 
-        public static function findByName($name) {
+        public static function findByName($name, $multi = false) {
             $result = Sql::Get('user', 'name', $name);
 
             if (
+                !$multi &&
                 isset($result[0]['id']) &&
                 isset($result[0]['name']) &&
                 isset($result[0]['password']) &&
@@ -71,6 +72,17 @@
                     $result[0]['name'],
                     $result[0]['password'],
                     $result[0]['role']);
+            } elseif($multi) {
+                foreach ($result as $user) {
+                    $res[ $user['id'] ] = new User(
+                        $user['id'],
+                        $user['name'],
+                        $user['password'],
+                        $user['role']
+                    );
+                }
+
+                return $res;
             } else {
                 return $result;
             }
