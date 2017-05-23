@@ -72,17 +72,6 @@
                     $result[0]['name'],
                     $result[0]['password'],
                     $result[0]['role']);
-            } elseif($multi) {
-                foreach ($result as $user) {
-                    $res[ $user['id'] ] = new User(
-                        $user['id'],
-                        $user['name'],
-                        $user['password'],
-                        $user['role']
-                    );
-                }
-
-                return $res;
             } else {
                 return $result;
             }
