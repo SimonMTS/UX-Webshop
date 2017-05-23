@@ -63,6 +63,22 @@
             return $res;
         }
 
+        // Sql::Search('user', 'name', 'beheerder1');        
+        public static function Search($table, $row = '', $like = '') {
+            $db = Sql::getInstance();
+
+            try {
+                $req = $db->prepare("SELECT * FROM $table WHERE $row LIKE :like");
+                $req->execute([
+                    ':like' => "%".$like."%"
+                    ]);
+                $res = $req->fetchall();
+            } catch( PDOException $Exception ) {
+                return $Exception->getMessage();
+            }
+
+            return $res;
+        }
 
         // Sql::Save('user', [
         //     'id' => 'test_id',
