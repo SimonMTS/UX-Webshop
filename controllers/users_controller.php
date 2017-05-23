@@ -6,7 +6,7 @@
         public function login() {
             if (isset($_POST['user'])) {
                 $user = User::findByName($_POST['user']['name']);
-                if ( $user !== false && $user->password === Base::Hash_String($_POST['user']['password']) ) {
+                if ( $user != false && $user->password === Base::Hash_String($_POST['user']['password']) ) {
                     $_SESSION['user'] = [
                         "id" => $user->id,
                         "name" => $user->name,
