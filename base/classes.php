@@ -63,7 +63,7 @@
             return $res;
         }
 
-        // Sql::Search('user', 'name', 'beheerder1');        
+        // Sql::Search('user', 'name', 'beheerder1');
         public static function Search($table, $row = '', $like = '') {
             $db = Sql::getInstance();
 
