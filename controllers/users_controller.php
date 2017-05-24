@@ -51,11 +51,11 @@
                 isset($_POST['user']['password']) && !empty($_POST['user']['password']) &&
                 $_POST['user']['password'] === $_POST['user']['passwordrep'] &&
                 !user::findByName($_POST['user']['name'])
-            ) {   
+            ) {
                 $user = new User(
                     Base::Genetate_id(),
-                    $_POST['user']['name'],
-                    Base::Hash_String($_POST['user']['password']),
+                    Base::Sanitize( $_POST['user']['name'] ),
+                    Base::Hash_String( $_POST['user']['password'] ),
                     1
                 );
 

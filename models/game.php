@@ -7,7 +7,7 @@
         public $desc;
         public $cover;
 
-        public function __construct($id, $name) {
+        public function __construct($id, $name, $price, $desc, $cover) {
             $this->id = $id;
             $this->name = $name;
             $this->price = $price;
@@ -70,7 +70,7 @@
                     'id' => $this->id,
                     'name' => $this->name,
                     'price' => $this->price,
-                    'desc' => $this->desc,
+                    'descr' => $this->desc,
                     'cover' => $this->cover
                 ]);
 

@@ -23,6 +23,40 @@
             require_once('views/layout.php');
         }
 
+        public static function Upload_file($file) {
+            $target_dir = "assets/";
+            $target_file = $target_dir . self::Genetate_id().$file['name'] ;
+            $uploadOk = 1;
+            $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+            
+            $check = getimagesize($file["tmp_name"]);
+            if($check !== false) {
+                $uploadOk = 1;
+            } else {
+                $uploadOk = 0;
+            }
+            
+            if ($file["size"] > 500000) {
+                $uploadOk = 0;
+            }
+            
+            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif" ) {
+                $uploadOk = 0;
+            }
+
+            if ($uploadOk == 0) {
+                return false;
+            } else {
+                if (move_uploaded_file($file["tmp_name"], $target_file)) {
+                    return $target_file;
+                } else {
+                    return false;
+                }
+            }
+
+        }
+
         public static function Sanitize($string) {
             return htmlentities($string);
         }
