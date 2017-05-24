@@ -32,7 +32,11 @@
                     break;
             }
         }
-
+		
+		public static function searchByName($text) {
+			return Sql::Search('user', 'name', $text);
+		}
+		
         public static function all() {
             return Sql::Get('user');
         }

@@ -35,6 +35,12 @@ div .banner-img {
 	margin-bottom: 100px;
 }
 
+.createpage {
+	text-align: center;
+	margin-top: 100px;
+	margin-bottom: 100px;
+}
+
 .form1 {
 	margin-bottom: 10px;
 }
@@ -94,3 +100,7 @@ div.overview-item a.del {
     padding: 0px 4px;
 }
 
+.search {
+	margin-left: 15px !important;
+	margin-bottom: 20px !important;
+}

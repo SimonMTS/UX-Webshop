@@ -1,5 +1,17 @@
 <div class="container users">
 	<div class="row">
+		<div class="col-lg-3">
+		<form method="POST">
+			<div class="input-group search">
+			<input name="search" value="<?php if (isset ($_POST['search'])) { echo $_POST['search']; } ?>" type="text" class="form-control" placeholder="Search for...">
+			<span class="input-group-btn">
+			<button class="btn btn-default" type="submit">Go!</button>
+			</span>
+		</form>
+    </div>
+    </div>
+	</div>
+	<div class="row">
 		<div class="col-md-3 col-sm-6">
 			<div class="overview-item" style="background-image: url(<?=$GLOBALS['config']['base_url'].'assets/user.png' ?>);">
 				<a href="<?= $GLOBALS['config']['base_url'] ?>users/create" class="btn">add user</a>
@@ -17,3 +29,6 @@
 				</div>
 			<?php endif;
 			 endforeach; ?>
+	</div>
+</div>
+			

@@ -30,11 +30,18 @@
 
         public function overview() {
             if ($_SESSION['user']['role'] == 777) {
-                $users = user::all();
-                
-                Base::Render('users/overview', [
-                    'users' => $users
-                ]);
+				if (isset($_POST['search'])) {
+					$search = base::Sanitize($_POST['search']);
+					$users = user::searchByName($search);
+					Base::Render('users/overview', [
+						'users' => $users
+					]);
+				} else {
+					$users = user::all();
+					Base::Render('users/overview', [
+						'users' => $users
+					]);
+				}
             } else {
                 Base::Render('pages/error');
             }
