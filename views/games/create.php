@@ -4,7 +4,7 @@
         <br>
         <input class="form " type="number" placeholder="Prijs" name="game[price]" required>
         <br>
-        <input class="form " type="text" placeholder="Beschrijfing" name="game[desc]" required>
+        <input class="form " type="text" placeholder="Beschrijfing" name="game[descr]" required>
         <br>
         <input class="form " type="file" placeholder="Cover" name="cover" required>
         <br>
