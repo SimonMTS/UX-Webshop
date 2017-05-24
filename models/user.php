@@ -100,13 +100,6 @@
                     'role' => $this->role,
                 ]);
 
-                $_SESSION['user'] = [
-                    "id" => $this->id,
-                    "name" => $this->name,
-                    "password" => $this->password,
-                    "role" => $this->role
-                ];
-
                 return true;
             } else {
                 Sql::Update('user', 'id', $this->id, [
@@ -115,13 +108,6 @@
                     'password' => $this->password,
                     'role' => $this->role,
                 ]);
-
-                $_SESSION['user'] = [
-                    "id" => $this->id,
-                    "name" => $this->name,
-                    "password" => $this->password,
-                    "role" => $this->role
-                ];
 
                 return true;
             }

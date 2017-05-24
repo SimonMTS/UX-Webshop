@@ -1,5 +1,7 @@
-<div class="overview-item" style="background-image: url(<?=$GLOBALS['config']['base_url'].'assets/noPicture.png' ?>);">
-    <span><?=$_SESSION['user']['name'] ?></span>
-    <span><?=user::role($_SESSION['user']['role']) ?></span>
-    <a href="<?= $GLOBALS['config']['base_url'] ?>users/edit/<?=$_SESSION['user']['id'] ?>" class="btn">edit</a>
+<div class="overview-item" style="background-image: url(<?=$GLOBALS['config']['base_url'].$Cvar['game']->cover ?>);">
+    <span><?=$Cvar['game']->name ?></span>
+    <span><?=$Cvar['game']->price ?>,-</span>
+    <?php if ( isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777 ) : ?>
+        <a href="<?= $GLOBALS['config']['base_url'] ?>games/edit/<?=$Cvar['game']->id ?>" class="btn">edit</a>
+    <?php endif; ?>
 </div>

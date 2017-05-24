@@ -29,7 +29,7 @@
         }
 
         public function overview() {
-            if ($_SESSION['user']['role'] == 777) {
+            if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
 				if (isset($_POST['search'])) {
 					$search = base::Sanitize($_POST['search']);
 					$users = user::searchByName($search);
@@ -67,7 +67,20 @@
                 );
 
                 if ($user->save()) {
-                    Base::Redirect($GLOBALS['config']['base_url']);
+                    if ( !isset($_SESSION['user']) ) {
+                        $_SESSION['user'] = [
+                            "id" => $user->id,
+                            "name" => $user->name,
+                            "password" => $user->password,
+                            "role" => $user->role
+                        ];
+                    }
+
+                    if ($_SESSION['user']['role'] == 777) {
+                        Base::Redirect($GLOBALS['config']['base_url'].'users/overview');
+                    } else {
+                        Base::Redirect($GLOBALS['config']['base_url']);
+                    }
                 } else {
                     Base::Render('pages/error');
                 }
@@ -109,12 +122,16 @@
         }
 
         public function delete() {
-            $id = Base::Sanitize( $_GET['var1'] );
-            $user = User::find($id);
+            if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
+                $id = Base::Sanitize( $_GET['var1'] );
+                $user = User::find($id);
 
-            if ($_SESSION['user']['role'] > $user->role) {
-                $user->delete();
-                Base::Redirect($GLOBALS['config']['base_url'] . 'users/overview');
+                if ($_SESSION['user']['role'] > $user->role) {
+                    $user->delete();
+                    Base::Redirect($GLOBALS['config']['base_url'] . 'users/overview');
+                } else {
+                    Base::Render('pages/error');
+                }
             } else {
                 Base::Render('pages/error');
             }
