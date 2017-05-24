@@ -33,8 +33,8 @@
             }
         }
 		
-		public static function searchByName($text) {
-			return Sql::Search('user', 'name', $text);
+		public static function searchByName($text, $limit, $offset) {
+			return Sql::Search('user', 'name', $text, $limit, $offset);
 		}
 		
         public static function all() {

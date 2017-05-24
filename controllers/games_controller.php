@@ -4,11 +4,22 @@
     class gamesController {
 
         public function overview() {
-            $games = Game::all();
-
-            Base::Render('games/overview', [
-                'games' => $games
-            ]);
+            if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
+				if (isset($_POST['search'])) {
+					$search = base::Sanitize($_POST['search']);
+					$games = Game::searchByName($search);
+					Base::Render('games/overview', [
+						'games' => $games
+					]);
+				} else {
+					$games = Game::all();
+					Base::Render('games/overview', [
+						'games' => $games
+					]);
+				}
+            } else {
+                Base::Render('pages/error');
+            }
         }
 
         public function view() {

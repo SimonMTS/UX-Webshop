@@ -98,11 +98,11 @@
         }
 
         // Sql::Search('user', 'name', 'beheerder1');
-        public static function Search($table, $row = '', $like = '') {
+        public static function Search($table, $row = '', $like = '', $limit = 11, $offset = 0) {
             $db = Sql::getInstance();
 
             try {
-                $req = $db->prepare("SELECT * FROM $table WHERE $row LIKE :like");
+                $req = $db->prepare("SELECT * FROM $table WHERE $row LIKE :like LIMIT $limit OFFSET $offset");
                 $req->execute([
                     ':like' => "%".$like."%"
                     ]);

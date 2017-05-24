@@ -37,7 +37,7 @@
 						'users' => $users
 					]);
 				} else {
-					$users = user::all();
+					$users = user::searchByName('');
 					Base::Render('users/overview', [
 						'users' => $users
 					]);

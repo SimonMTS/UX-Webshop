@@ -14,6 +14,10 @@
             $this->descr = $descr;
             $this->cover = $cover;
         }
+		
+		public static function searchByName($text) {
+			return Sql::Search('game', 'name', $text);
+		}
 
         public static function all() {
             return Sql::Get('game');
