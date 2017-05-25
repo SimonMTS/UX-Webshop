@@ -15,8 +15,8 @@
             $this->cover = $cover;
         }
 		
-		public static function searchByName($text) {
-			return Sql::Search('game', 'name', $text);
+		public static function searchByName($text, $limit, $offset) {
+			return Sql::Search('game', 'name', $text, $limit, $offset);
 		}
 
         public static function all() {

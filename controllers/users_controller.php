@@ -32,12 +32,12 @@
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
 				if (isset($_POST['search'])) {
 					$search = base::Sanitize($_POST['search']);
-					$users = user::searchByName($search);
+					$users = user::searchByName($search, 11, 0);
 					Base::Render('users/overview', [
 						'users' => $users
 					]);
 				} else {
-					$users = user::searchByName('');
+					$users = user::searchByName('', 11, 0);
 					Base::Render('users/overview', [
 						'users' => $users
 					]);
