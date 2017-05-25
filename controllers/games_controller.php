@@ -3,7 +3,7 @@
 
     class gamesController {
 
-        public function overview() {
+        public static function overview() {
             if (isset($_GET['var1'] )) {
                 $page = (int) Base::Sanitize( $_GET['var1'] );
                 if ($page < 1) {
@@ -26,7 +26,7 @@
             ]);
         }
 
-        public function view() {
+        public static function view() {
             $id = Base::Sanitize( $_GET['var1'] );
             $game = Game::Find($id);
 
@@ -35,7 +35,7 @@
             ]);
         }
 
-        public function create() {
+        public static function create() {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
                 if (
                     isset($_POST['game']) &&
@@ -65,7 +65,7 @@
             }
         }
 
-        public function edit() {
+        public static function edit() {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
                 
                 Base::Render('games/edit');
@@ -74,7 +74,7 @@
             }
         }
 
-        public function delete() {
+        public static function delete() {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
                 $id = Base::Sanitize( $_GET['var1'] );
                 $game = Game::find($id);
@@ -90,7 +90,7 @@
             }
         }
 
-        public function addgames() {
+        public static function addgames() {
             $games = [
                 [
                     'name' => 'For Honor',

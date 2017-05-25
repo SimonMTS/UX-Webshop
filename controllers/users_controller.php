@@ -3,7 +3,7 @@
 
     class usersController {
 
-        public function login() {
+        public static function login() {
             if (isset($_POST['user'])) {
                 $user = User::findByName($_POST['user']['name']);
                 if ( $user != false && $user->password === Base::Hash_String($_POST['user']['password']) ) {
@@ -23,12 +23,12 @@
             }
         }
 
-        public function logout() {
+        public static function logout() {
             $_SESSION['user'] = null;
             Base::Redirect($GLOBALS['config']['base_url']);
         }
 
-        public function overview() {
+        public static function overview() {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
 				if (isset($_POST['search'])) {
 					$search = base::Sanitize($_POST['search']);
@@ -47,11 +47,11 @@
             }
         }
 
-        public function view() {
+        public static function view() {
             Base::Render('users/view');
         }
 
-        public function create() {
+        public static function create() {
             if (
                 isset($_POST['user']) &&
                 isset($_POST['user']['name']) && !empty($_POST['user']['name']) &&
@@ -89,7 +89,7 @@
             }
         }
 
-        public function edit() {
+        public static function edit() {
             $id = Base::Sanitize( $_GET['var1'] );
             $user = User::find($id);
 
@@ -121,7 +121,7 @@
             }
         }
 
-        public function delete() {
+        public static function delete() {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
                 $id = Base::Sanitize( $_GET['var1'] );
                 $user = User::find($id);
