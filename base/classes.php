@@ -101,6 +101,21 @@
             return $res;
         }
 
+        //
+        public static function GetSorted($table, $row, $limit = 4) {
+            $db = Sql::getInstance();
+
+            try {
+                $req = $db->prepare("SELECT * FROM $table ORDER BY $row DESC LIMIT $limit");
+                $req->execute();
+                $res = $req->fetchall();
+            } catch( PDOException $Exception ) {
+                return $Exception->getMessage();
+            }
+            
+            return $res;
+        }
+
         // Sql::Search('user', 'name', 'beheerder1');
         public static function Search($table, $row = '', $like = '', $limit = 11, $offset = 0) {
             $db = Sql::getInstance();
