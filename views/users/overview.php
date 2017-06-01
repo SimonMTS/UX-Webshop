@@ -17,7 +17,7 @@
 				<a href="<?= $GLOBALS['config']['base_url'] ?>users/create" class="btn">add user</a>
 			</div>
 		</div>
-			<?php foreach ($Cvar['users'] as $user) : 
+			<?php foreach ($users as $user) : 
 				if ($user['id'] != $_SESSION['user']['id']) : ?>
 				<div class="col-md-3 col-sm-6">
 					<div class="overview-item" style="background-image: url(<?=$GLOBALS['config']['base_url'].'assets/noPicture.png' ?>);">

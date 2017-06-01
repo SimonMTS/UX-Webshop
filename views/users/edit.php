@@ -1,6 +1,6 @@
 
 <form action="" method="post">
-    Username: <input class="form" type="text" name="user[name]" value="<?=$Cvar['user']->name ?>">
+    Username: <input class="form" type="text" name="user[name]" value="<?=$user->name ?>">
     <br>
     <input class="form" type="text" placeholder="Password" name="user[password]">
     <br>

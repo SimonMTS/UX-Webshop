@@ -18,6 +18,10 @@
                 $Cvar['page_title'] = $GLOBALS['config']['Default_Title'];
             }
             
+            foreach ($Cvar as $key => $value) {
+                ${$key} = $value;
+            }
+
             $view = $view . '.php';
 
             require_once('views/layout.php');
