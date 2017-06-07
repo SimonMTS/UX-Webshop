@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row hidden-xs">
 		<div class="col-md-12">
-			<img class="banner-img .hidden-sm" src="assets/banner.png">
+			<img class="banner-img .hidden-sm" src="assets/img/banner.png">
 		</div>
 	</div>
 </div>

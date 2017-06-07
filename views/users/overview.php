@@ -3,7 +3,7 @@
 		<div class="col-md-3">
 			<form method="POST">
 				<div class="input-group search">
-					<input name="search" value="<?php if (isset ($_POST['search'])) { echo $_POST['search']; } ?>" type="text" class="form-control" placeholder="Search for...">
+					<input name="var2" value="<?php if (isset ($_POST['search'])) { echo $_POST['search']; } ?>" type="text" class="form-control" placeholder="Search for...">
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="submit">Go!</button>
 					</span>
@@ -15,13 +15,13 @@
 		</div>
 	</div>
 	<div class="row">
-		<hr>
+		<hr class="hr-mar">
 	</div>
 	<div class="row">
-		<?php foreach ($users as $user) : ?>
-			<div class="col-md-6 user-list-item">
+		<?php foreach ($users as $key => $user) : ?>
+			<div class="col-md-5 <?php if (!(floor($key/2) == ($key/2))) : ?>col-md-offset-2<?php endif; ?> user-list-item">
 				<a class="view" href="<?=$GLOBALS['config']['base_url'].'users/view/'.$user['id'] ?>">
-					<img class="img-responsive" src="<?=$GLOBALS['config']['base_url'].'assets/user.png' ?>">
+					<div style="background-image: url(<?=$GLOBALS['config']['base_url'].$user['pic'] ?>);" class="img"></div>
 					<span class="name"><?=$user['name'] ?></span>
 					<span class="role"><?=user::role($user['role']) ?></span>
 				</a>
@@ -32,15 +32,9 @@
 		<?php endforeach; ?>
 	</div>
 	<div class="row">
-		<div class="col-md-4 col-md-offset-4">
-			<a href="<?=$GLOBALS['config']['base_url'].'games/overview/'.($page-1).$searchpar ?>">prev</a>
-			<a href="<?=$GLOBALS['config']['base_url'].'games/overview/'.($page+1).$searchpar ?>">next</a>
-		</div>
-		<div class="col-md-12">
-			<br>
-			<br>
-			<br>
-			<br>
+		<div class="col-md-2 col-md-offset-5">
+			<a href="<?=$GLOBALS['config']['base_url'].'users/overview/'.($page-1).$searchpar ?>" class="<?php if ($page == 1) : ?>disabled<?php endif; ?>">previous</a>
+			<a href="<?=$GLOBALS['config']['base_url'].'users/overview/'.($page+1).$searchpar ?>" class="pull-right">next</a>
 		</div>
 	</div>
 </div>

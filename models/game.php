@@ -119,7 +119,7 @@
         public function delete() {
             $game = self::find($this->id);
 
-            if ($game->cover != 'assets/noPicture.png') {
+            if ($game->cover != 'assets/img/noPicture.png') {
                 if ( !unlink($game->cover) ) {
                     return false;
                 }

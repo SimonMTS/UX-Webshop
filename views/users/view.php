@@ -1,7 +1,7 @@
 <div class="container users">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="overview-item" style="background-image: url(<?=$GLOBALS['config']['base_url'].'assets/noPicture.png' ?>);">
+			<div class="overview-item" style="background-image: url(<?=$GLOBALS['config']['base_url'].$user->pic ?>);">
 				<span><?=$user->name ?></span>
 				<span><?=User::Role($user->role) ?></span>
 				<a href="<?= $GLOBALS['config']['base_url'] ?>users/edit/<?=$user->id ?>" class="btn">edit</a>
