@@ -1,5 +1,6 @@
 <?php
-    require_once('./models/user.php');
+    require "models/user.php";
+    require "models/order.php";
 
     class usersController {
 
@@ -48,7 +49,15 @@
         }
 
         public static function view() {
-            Base::Render('users/view');
+            //TODO admin check
+            $id = Base::Sanitize( $_GET['var1'] );
+            $user = User::Find($id);
+            $orders = Order::FindByUser($id);
+            
+            Base::Render('users/view', [
+                'user' => $user,
+                'orders' => $orders
+            ]);
         }
 
         public static function create() {

@@ -104,3 +104,47 @@ div.overview-item a.del {
 	margin-left: 15px !important;
 	margin-bottom: 20px !important;
 }
+
+div.user-list-item {
+    /*margin-right: 20px;*/
+    
+}
+
+div.user-list-item a.view {
+    display: block;
+    height: 100px;
+    width: calc(100% - 40px);
+}
+
+div.user-list-item a.view img {
+    height: 100px;
+    width: 100px;
+    display: inline-block;
+}
+
+div.user-list-item a.view span.name {
+    position: absolute;
+    top: 0px;
+    left: 110px;
+}
+
+div.user-list-item a.view span.role {
+    position: absolute;
+    top: 20px;
+    left: 110px;
+}
+
+div.user-list-item a.del {
+    position: absolute;
+    right: 10px;
+    top: -15px;
+    font-weight: 900;
+    color: red;
+    text-decoration: none;
+}
+
+div.user-list-item a.edit {
+    position: absolute;
+    right: 10px;
+    bottom: 30px;
+}

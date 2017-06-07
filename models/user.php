@@ -61,11 +61,10 @@
 
         }
 
-        public static function findByName($name, $multi = false) {
+        public static function findByName($name) {
             $result = Sql::Get('user', 'name', $name);
 
             if (
-                !$multi &&
                 isset($result[0]['id']) &&
                 isset($result[0]['name']) &&
                 isset($result[0]['password']) &&

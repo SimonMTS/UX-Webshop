@@ -1,5 +1,5 @@
 <?php
-    require_once('./models/game.php');
+    require "models/game.php";
 
     class gamesController {
 
@@ -46,12 +46,16 @@
             $id = Base::Sanitize( $_GET['var1'] );
             $game = Game::Find($id);
             
-            $views = Game::addView($id);
+            if ( $game ) {
+                $views = Game::addView($id);
 
-            Base::Render('games/view', [
-                'game' => $game,
-                'views' => $views
-            ]);
+                Base::Render('games/view', [
+                    'game' => $game,
+                    'views' => $views
+                ]);
+            } else {
+                Base::Render('pages/error');
+            }
         }
 
         public static function create() {

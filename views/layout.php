@@ -42,7 +42,7 @@
 						<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/create">Registreer</a></li>
 						<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/login">Login</a></li>
 						<?php else : ?>
-						<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/view">Account</a></li>
+						<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/view/<?=$_SESSION['user']['id'] ?>">Account</a></li>
 						<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/logout">Logout(<?=$_SESSION['user']['name'] ?>)</a></li>
 						<?php endif; ?>
 					</ul>
