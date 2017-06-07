@@ -1,6 +1,6 @@
 <div class="container-fluid">
 	<div class="row hidden-xs">
-		<div class="col-md-12">
+		<div class="col-md-12 hp-col">
 			<img class="banner-img .hidden-sm" src="assets/img/banner.png">
 		</div>
 	</div>

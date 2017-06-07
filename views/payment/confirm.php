@@ -5,8 +5,8 @@
             <p><?= $method ?></p>
             <p><?= $status ?></p>
             <p><?= $paidDatetime ?></p>
-            <p><?= $details->consumerName ?></p>
-            <p><?= $details->consumerAccount ?></p>
+            <p><?= $details_consumerName ?></p>
+            <p><?= $details_consumerAccount ?></p>
         </div>
     </div>
 </div>

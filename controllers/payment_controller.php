@@ -34,6 +34,18 @@
             $payment = $mollie->payments->get($init_payment_id);
 
             if ($payment->isPaid()) {
+                if (isset( $payment->details->consumerName )) {
+                    $details_consumerName = $payment->details->consumerName;
+                } else {
+                    $details_consumerName = 'unknown';
+                }
+
+                if (isset( $payment->details->consumerAccount )) {
+                    $details_consumerAccount = $payment->details->consumerAccount;
+                } else {
+                    $details_consumerAccount = 'unknown';
+                }
+
                 $order = new Order(
                     str_replace('tr_', '', $init_payment_id ),
                     $payment->description,
@@ -41,8 +53,8 @@
                     $payment->method,
                     $payment->status,
                     $payment->paidDatetime,
-                    $payment->details->consumerName,
-                    $payment->details->consumerAccount
+                    $details_consumerName,
+                    $details_consumerAccount
                 );
                 
                 if ( $order->Save() ) {
@@ -50,7 +62,8 @@
                         'method' => $payment->method,
                         'status' => $payment->status,
                         'paidDatetime' => $payment->paidDatetime,
-                        'details' => $payment->details
+                        'details_consumerName' => $details_consumerName,
+                        'details_consumerAccount' => $details_consumerAccount
                     ]);
                 } else {
                     Base::Render('pages/error');

@@ -194,5 +194,21 @@
                 Base::Render('pages/error');
             }
         }
+
+        public static function addusers() {
+            for ($i=1; $i < 20; $i++) {
+                $usr = new User(
+                    Base::Genetate_id(),
+                    Base::Sanitize('test'.$i ),
+                    Base::Hash_String('test'.$i),
+                    1,
+                    'assets/img/user.png'
+                );
+
+                if ( !$usr->save() ) {
+                    echo'error';exit;
+                }
+            }
+        }
     }
 ?>
