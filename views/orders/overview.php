@@ -14,7 +14,7 @@
 	<div class="row">
 		<?php if ( isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777 ) : ?>
 			<div class="col-md-3 col-sm-6">
-				<div class="overview-item" style="background-image: url(<?=$GLOBALS['config']['base_url'].'assets/img/user.png' ?>);">
+				<div class="overview-item" style="background-image: url(<?=$GLOBALS['config']['base_url'].'assets/user.png' ?>);">
 					<a href="<?= $GLOBALS['config']['base_url'] ?>games/create" class="btn">add game</a>
 				</div>
 			</div>

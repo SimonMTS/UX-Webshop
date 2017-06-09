@@ -24,10 +24,10 @@ div .banner-img {
 	margin-top: 20px;
 }
 
-.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+/*.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
 	padding-left: 0px;
 	padding-right: 0px;
-}
+}*/
 
 .loginpage {
 	text-align: center;
@@ -51,6 +51,12 @@ div .banner-img {
 
 .portrait {
 	margin-top: 40px;
+}
+
+.disabled {
+    color: grey;
+    cursor: not-allowed;
+    display: none;
 }
 
 div.overview-item {
@@ -103,4 +109,55 @@ div.overview-item a.del {
 .search {
 	margin-left: 15px !important;
 	margin-bottom: 20px !important;
+}
+
+div.hp-col {
+    padding-left: 0px;
+	padding-right: 0px;
+}
+
+hr.hr-mar {
+    margin-top: 0px;
+}
+
+div.user-list-item a.view {
+    display: block;
+    height: 100px;
+    width: calc(100% - 40px);
+}
+
+div.user-list-item a.view div.img {
+    height: 100px;
+    width: 100px;
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+}
+
+div.user-list-item a.view span.name {
+    position: absolute;
+    top: 0px;
+    left: 120px;
+}
+
+div.user-list-item a.view span.role {
+    position: absolute;
+    top: 20px;
+    left: 120px;
+}
+
+div.user-list-item a.del {
+    position: absolute;
+    right: 10px;
+    top: -10px;
+    font-weight: 900;
+    color: red;
+    text-decoration: none;
+}
+
+div.user-list-item a.edit {
+    position: absolute;
+    right: 10px;
+    bottom: 30px;
 }

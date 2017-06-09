@@ -5,3 +5,5 @@
         <a href="<?= $GLOBALS['config']['base_url'] ?>games/edit/<?=$game->id ?>" class="btn">edit</a>
     <?php endif; ?>
 </div>
+
+<a href="<?= $GLOBALS['config']['base_url'] ?>payment/setup/<?=$game->id ?>">Buy</a>

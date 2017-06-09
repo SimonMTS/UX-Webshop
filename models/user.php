@@ -6,11 +6,12 @@
         public $password;
         public $role;
 
-        public function __construct($id, $name, $password, $role) {
+        public function __construct($id, $name, $password, $role, $pic) {
             $this->id = $id;
             $this->name = $name;
             $this->password = $password;
             $this->role = $role;
+            $this->pic = $pic;
         }
 
         public static function role($text) { //eval
@@ -48,34 +49,37 @@
                 isset($result[0]['id']) &&
                 isset($result[0]['name']) &&
                 isset($result[0]['password']) &&
-                isset($result[0]['role'])
+                isset($result[0]['role']) &&
+                isset($result[0]['pic'])
             ) {
                 return new User(
                     $result[0]['id'],
                     $result[0]['name'],
                     $result[0]['password'],
-                    $result[0]['role']);
+                    $result[0]['role'],
+                    $result[0]['pic']);
             } else {
                 return false;
             }
 
         }
 
-        public static function findByName($name, $multi = false) {
+        public static function findByName($name) {
             $result = Sql::Get('user', 'name', $name);
 
             if (
-                !$multi &&
                 isset($result[0]['id']) &&
                 isset($result[0]['name']) &&
                 isset($result[0]['password']) &&
-                isset($result[0]['role'])
+                isset($result[0]['role']) &&
+                isset($result[0]['pic'])
             ) {
                 return new User(
                     $result[0]['id'],
                     $result[0]['name'],
                     $result[0]['password'],
-                    $result[0]['role']);
+                    $result[0]['role'],
+                    $result[0]['pic']);
             } else {
                 return $result;
             }
@@ -98,6 +102,7 @@
                     'name' => $this->name,
                     'password' => $this->password,
                     'role' => $this->role,
+                    'pic' => $this->pic
                 ]);
 
                 return true;
@@ -107,6 +112,7 @@
                     'name' => $this->name,
                     'password' => $this->password,
                     'role' => $this->role,
+                    'pic' => $this->pic
                 ]);
 
                 return true;
@@ -114,6 +120,14 @@
         }
 
         public function delete() {
+            $user = self::find($this->id);
+
+            if ($user->pic != 'assets/img/user.png') {
+                if ( !unlink($user->pic) ) {
+                    return false;
+                }
+            }
+
             Sql::Delete('user', 'id', $this->id);
         }
     }

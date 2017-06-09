@@ -1,17 +1,14 @@
 <?php
+    require "models/game.php";
+
     class pagesController {
 
         public static function home() {
-
-            if (isset($_SESSION['user']['name'])) {
-                $name = $_SESSION['user']['name'];
-            } else {
-                $name = 'bezoeker';
-            }
+            $games = Game::findPopular(4);
 
             Base::Render('pages/home', [
                 'page_title' => 'Home',
-                'name' => $name
+                'games' => $games
             ]);
         }
 

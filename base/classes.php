@@ -28,7 +28,7 @@
         }
 
         public static function Upload_file($file) {
-            $target_dir = "assets/";
+            $target_dir = "assets/img/";
             $target_file = $target_dir . self::Genetate_id().$file['name'] ;
             $uploadOk = 1;
             $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -64,6 +64,10 @@
         public static function Sanitize($string) {
             return htmlentities($string);
         }
+        
+        public static function Curl() {
+            return (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        }
 
         public static function Genetate_id() {
             return str_replace('.', '', uniqid('', true));;
@@ -98,6 +102,21 @@
                 return $Exception->getMessage();
             }
 
+            return $res;
+        }
+
+        //
+        public static function GetSorted($table, $row, $limit = 4) {
+            $db = Sql::getInstance();
+
+            try {
+                $req = $db->prepare("SELECT * FROM $table ORDER BY $row DESC LIMIT $limit");
+                $req->execute();
+                $res = $req->fetchall();
+            } catch( PDOException $Exception ) {
+                return $Exception->getMessage();
+            }
+            
             return $res;
         }
 
@@ -202,7 +221,7 @@
 
                 return true;
             } else {
-                return '$row and/or $where not set.';
+                return false;
             }
         }
     }

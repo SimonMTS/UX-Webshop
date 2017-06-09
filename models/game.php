@@ -49,6 +49,10 @@
 
         }
 
+        public static function findPopular($limit) {
+            return Sql::GetSorted('game', 'views', $limit);
+        }
+
         public static function findByName($name) {
             $result = Sql::Get('game', 'name', $name);
 
@@ -60,7 +64,7 @@
                 isset($result[0]['cover']) &&
                 isset($result[0]['views'])
             ) {
-                return new User(
+                return new Game(
                     $result[0]['id'],
                     $result[0]['name'],
                     $result[0]['price'],
@@ -115,7 +119,7 @@
         public function delete() {
             $game = self::find($this->id);
 
-            if ($game->cover != 'assets/noPicture.png') {
+            if ($game->cover != 'assets/img/noPicture.png') {
                 if ( !unlink($game->cover) ) {
                     return false;
                 }
