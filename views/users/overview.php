@@ -17,7 +17,8 @@
 				<a href="<?= $GLOBALS['config']['base_url'] ?>users/create" class="btn">add user</a>
 			</div>
 		</div>
-			<?php foreach ($users as $user) : ?>
+			<?php foreach ($users as $user) : 
+				if ($user['id'] != $_SESSION['user']['id']) : ?>
 				<div class="col-md-3 col-sm-6">
 					<div class="overview-item" style="background-image: url(<?=$GLOBALS['config']['base_url'].'assets/noPicture.png' ?>);">
 						<span><?=$user['name'] ?></span>
@@ -26,19 +27,8 @@
 						<a href="<?= $GLOBALS['config']['base_url'] ?>users/delete/<?=$user['id'] ?>" class="del">x</a>
 					</div>
 				</div>
-			 <?php endforeach; ?>
-	</div>
-	<div class="row">
-		<div class="col-md-4 col-md-offset-4">
-			<a href="<?=$GLOBALS['config']['base_url'].'users/overview/'.($page-1).$searchpar ?>">prev</a>
-			<a href="<?=$GLOBALS['config']['base_url'].'users/overview/'.($page+1).$searchpar ?>">next</a>
-		</div>
-		<div class="col-md-12">
-			<br>
-			<br>
-			<br>
-			<br>
-		</div>
+			<?php endif;
+			 endforeach; ?>
 	</div>
 </div>
 			
