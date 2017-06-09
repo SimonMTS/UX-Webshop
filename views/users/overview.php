@@ -1,6 +1,6 @@
 <div class="container portrait">
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3 col-xs-8">
 			<form method="POST">
 				<div class="input-group search">
 					<input name="var2" value="<?php if (isset ($_POST['search'])) { echo $_POST['search']; } ?>" type="text" class="form-control" placeholder="Search for...">
@@ -10,7 +10,7 @@
 				</div>
 			</form>
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-9 col-xs-4">
 			<a href="<?= $GLOBALS['config']['base_url'] ?>users/create" class="btn btn-default pull-right">add user</a>
 		</div>
 	</div>
@@ -35,6 +35,11 @@
 		<div class="col-md-2 col-md-offset-5">
 			<a href="<?=$GLOBALS['config']['base_url'].'users/overview/'.($page-1).$searchpar ?>" class="<?php if ($page == 1) : ?>disabled<?php endif; ?>">previous</a>
 			<a href="<?=$GLOBALS['config']['base_url'].'users/overview/'.($page+1).$searchpar ?>" class="pull-right">next</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<br>
 		</div>
 	</div>
 </div>
