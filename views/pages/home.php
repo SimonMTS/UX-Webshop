@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row hidden-xs">
-		<div class="col-md-12 hp-col">
-			<img class="banner-img .hidden-sm" src="assets/img/banner.png">
+		<div class="col-md-12 hp-col" style="background-image: url(<?=$GLOBALS['config']['base_url'] ?>assets/img/banner-rep.png);">
+			<!--<img class="banner-img .hidden-sm" src="assets/img/banner.png">-->
 		</div>
 	</div>
 </div>

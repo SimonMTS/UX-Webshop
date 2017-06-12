@@ -114,6 +114,7 @@ div.overview-item a.del {
 div.hp-col {
     padding-left: 0px;
 	padding-right: 0px;
+    height: 200px;
 }
 
 hr.hr-mar {
