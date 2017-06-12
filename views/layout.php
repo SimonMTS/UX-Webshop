@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="<?= $GLOBALS['config']['base_url'] ?>assets/css/site.css">
         <script type="text/javascript" src="<?= $GLOBALS['config']['base_url'] ?>assets/js/script.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="shortcut icon" href="<?= $GLOBALS['config']['base_url'] ?>assets/img/favicon.ico" />
 				<link rel="icon" href="<?= $GLOBALS['config']['base_url'] ?>assets/img/favicon.ico" type="image/x-icon" />
         <title>UXXX</title>
     </head>
@@ -25,7 +25,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				  </button>
-				  <a class="navbar-brand" href="<?= $GLOBALS['config']['base_url'] ?>"><img alt="Brand" class="header-img" src="<?= $GLOBALS['config']['base_url'] ?>assets/img/uxxx.png"></a>
+				  <a class="navbar-brand" href="<?= $GLOBALS['config']['base_url'] ?>"><img alt="Brand" class="header-img" src="<?= $GLOBALS['config']['base_url'] ?>assets/img/UXXX.png"></a>
 				</div>
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
