@@ -7,7 +7,7 @@
         public $descr;
         public $cover;
 
-        public function __construct($id, $name, $price, $descr, $cover, $views) {
+        public function __construct($id, $name, $price, $descr, $cover, $views = 0) {
             $this->id = $id;
             $this->name = $name;
             $this->price = $price;

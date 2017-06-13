@@ -65,7 +65,7 @@
                     isset($_POST['game']['name']) && !empty($_POST['game']['name']) &&
                     isset($_POST['game']['price']) && !empty($_POST['game']['price']) &&
                     isset($_POST['game']['descr']) && !empty($_POST['game']['descr']) &&
-                    (isset($_FILES['cover']) && $_FILES['pic']['size'] > 0)
+                    (isset($_FILES['cover']) && $_FILES['cover']['size'] > 0)
                 ) {
                     $game = new Game(
                         Base::Genetate_id(),
