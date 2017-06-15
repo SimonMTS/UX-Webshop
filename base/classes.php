@@ -73,8 +73,8 @@
             return str_replace('.', '', uniqid('', true));;
         }
 
-        public static function Hash_String($string) {
-            return hash('sha512', $string);
+        public static function Hash_String($string, $salt) {
+            return hash('sha512', $string . $salt);
         }
     }
 

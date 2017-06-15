@@ -7,12 +7,14 @@
         public static function login() {
             if (isset($_POST['user'])) {
                 $user = User::findByName($_POST['user']['name']);
-                if ( $user != false && $user->password === Base::Hash_String($_POST['user']['password']) ) {
+                if ( $user != false && $user->password === Base::Hash_String($_POST['user']['password'], $user->salt) ) {
                     $_SESSION['user'] = [
                         "id" => $user->id,
                         "name" => $user->name,
                         "password" => $user->password,
-                        "role" => $user->role
+                        "salt" => $user->salt,
+                        "role" => $user->role,
+                        "pic" => $user->pic
                     ];
 
                     Base::Redirect($GLOBALS['config']['base_url']);
@@ -76,7 +78,7 @@
             $id = Base::Sanitize( $_GET['var1'] );
             $user = User::Find($id);
 
-            if ($user !== false && (($user->id == $_SESSION['user']['id'] && $user->password == $_SESSION['user']['password']) || ($_SESSION['user']['role'] == 777))) {
+            if ($user !== false && (($user->id == $_SESSION['user']['id'] && $user->password == Base::Hash_String( $_SESSION['user']['password'], $user->salt) ) || ($_SESSION['user']['role'] == 777))) {
                 $orders = Order::FindByUser($id);
                 
                 Base::Render('users/view', [
@@ -102,10 +104,13 @@
                     $pic = 'assets/img/user.png';
                 }
                 
+                $salt = Base::Genetate_id();
+
                 $user = new User(
                     Base::Genetate_id(),
                     Base::Sanitize( $_POST['user']['name'] ),
-                    Base::Hash_String( $_POST['user']['password'] ),
+                    Base::Hash_String( $_POST['user']['password'], $salt ),
+                    $salt,
                     1,
                     $pic
                 );
@@ -116,6 +121,7 @@
                             "id" => $user->id,
                             "name" => $user->name,
                             "password" => $user->password,
+                            "salt" => $user->salt,
                             "role" => $user->role,
                             "pic" => $user->pic
                         ];
@@ -138,7 +144,7 @@
             $id = Base::Sanitize( $_GET['var1'] );
             $user = User::find($id);
 
-            if ($user !== false && (($user->id == $_SESSION['user']['id'] && $user->password == $_SESSION['user']['password']) || ($_SESSION['user']['role'] == 777))) {
+            if ($user !== false && (($user->id == $_SESSION['user']['id'] && $user->password == Base::Hash_String( $_SESSION['user']['password'], $user->salt )) || ($_SESSION['user']['role'] == 777))) {
                 if (
                     isset($_POST['user']) &&
                     isset($_POST['user']['name']) && !empty($_POST['user']['name']) &&
@@ -161,6 +167,7 @@
                                 "id" => $user->id,
                                 "name" => $user->name,
                                 "password" => $user->password,
+                                "salt" => $user->salt,
                                 "role" => $user->role,
                                 "pic" => $user->pic
                             ];
@@ -197,10 +204,13 @@
 
         public static function addusers() {
             for ($i=1; $i < 20; $i++) {
+                $salt = Base::Genetate_id();
+
                 $usr = new User(
                     Base::Genetate_id(),
                     Base::Sanitize('test'.$i ),
-                    Base::Hash_String('test'.$i),
+                    Base::Hash_String('test'.$i, $salt),
+                    $salt,
                     1,
                     'assets/img/user.png'
                 );
