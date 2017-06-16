@@ -97,13 +97,15 @@
                     isset($_POST['game']) &&
                     isset($_POST['game']['name']) &&
                     isset($_POST['game']['price']) &&
-                    isset($_POST['game']['descr']) &&
-                    isset($_POST['game']['cover'])
+                    isset($_POST['game']['descr'])
                 ) {
                     $game->name = Base::Sanitize( $_POST['game']['name'] );
                     $game->price = (int) Base::Sanitize( $_POST['game']['price'] );
                     $game->descr = Base::Sanitize( $_POST['game']['descr'] );
-                    $game->cover = Base::Sanitize( $_POST['game']['cover'] );
+                    
+                    if (isset($_FILES['cover']) && $_FILES['cover']['size'] > 0) {
+                        $game->cover = Base::Upload_file( $_FILES['cover'] );
+                    }
                     
                     if ($game->save()) {
                         Base::Redirect($GLOBALS['config']['base_url'] . "games/view/" . $game->id);
