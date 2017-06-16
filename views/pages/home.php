@@ -11,10 +11,14 @@
 			<h1 class="pop-prod">Populaire producten</h1>
 		</div>
 		<?php foreach ($games as $game) : ?>
-			<div class="col-md-3 col-sm-6">
+			<div class="col-md-3 col-sm-12 center-games">
 				<div class="overview-item" style="background-image: url(<?=$GLOBALS['config']['base_url'].$game['cover'] ?>);">
-					<span><?=$game['name'] ?> - <a href="<?=$GLOBALS['config']['base_url'].'games/view/'.$game['id'] ?>">view</a></span>
-					<span><?=$game['price'] ?>,-</span>
+					<div class="game-info">
+						<span><?=$game['name'] ?></span>
+						<span><?=$game['price'] ?>,-</span>
+						<a class="btn btn-default view-btn" href="<?=$GLOBALS['config']['base_url'].'games/view/'.$game['id'] ?>">view</a>
+						<div></div>
+					</div>
 				</div>
 			</div>
 		<?php endforeach; ?>

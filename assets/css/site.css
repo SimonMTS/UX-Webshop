@@ -76,14 +76,6 @@ div.center-games {
 	text-align: center;
 }
 
-div.search-games {
-    margin-left: 45px;
-}
-
-div.btn-games {
-	margin-left: 90px;
-}
-
 div.game-info {
 	/*background: #e5e5e5;*/
     position: absolute;
@@ -108,6 +100,11 @@ div.game-info div {
 
 div.overview-item a.edit-btn {
     float: left;
+}
+
+.edit-btn img {
+	width: 20px;
+	height:20px;
 }
 
 div.overview-item a.view-btn {
