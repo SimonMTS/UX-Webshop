@@ -1,5 +1,5 @@
 <?php
-    require "models/game.php";
+    require_once "models/game.php";
 
     class gamesController {
 

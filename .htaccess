@@ -4,10 +4,4 @@ RewriteEngine On
 RewriteRule ^(controllers/|models/|views/|base/|mollie/) - [F,L,NC]
 
 
-RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$ index.php?controller=$1&action=$2 [NC,L]
-
-RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$ index.php?controller=$1&action=$2&var1=$3 [NC,L]
-
-RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$ index.php?controller=$1&action=$2&var1=$3&var2=$4 [NC,L]
-
-RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$ index.php?controller=$1&action=$2&var1=$3&var2=$4&var3=$5 [NC,L]
+RewriteRule ^(.+)/ index.php?controller=$1

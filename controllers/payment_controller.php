@@ -1,7 +1,7 @@
 <?php
-    require "Mollie/API/Autoloader.php";
-    require "models/game.php";
-    require "models/order.php";
+    require_once "Mollie/API/Autoloader.php";
+    require_once "models/game.php";
+    require_once "models/order.php";
 
     class paymentController {
 

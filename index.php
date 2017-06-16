@@ -4,6 +4,8 @@
 
     session_start();
 
+var_dump($_GET);exit;
+
     if (isset($_GET['controller']) && isset($_GET['action'])) {
         $controller = $_GET['controller'];
         $action     = $_GET['action'];
