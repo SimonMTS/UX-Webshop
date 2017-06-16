@@ -1,7 +1,7 @@
 RewriteEngine On
 
 
-RewriteRule ^(controllers/|models/|views/|base/) - [F,L,NC]
+RewriteRule ^(controllers/|models/|views/|base/|mollie/) - [F,L,NC]
 
 
 RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$ index.php?controller=$1&action=$2 [NC,L]
