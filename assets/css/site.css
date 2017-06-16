@@ -85,13 +85,25 @@ div.btn-games {
 }
 
 div.game-info {
-	background: #e5e5e5;
+	/*background: #e5e5e5;*/
     position: absolute;
     bottom: 0;
     right: 0;
     left: 0;
     top: 210px;
+    /*opacity: 0.9;*/
+}
+
+div.game-info a, div.game-info span {
+    z-index: 10;
+}
+
+div.game-info div {
+    height: 100%;
+    width: 100%;
+    background: #e5e5e5;
     opacity: 0.9;
+    position: absolute;
 }
 
 div.overview-item a.edit-btn {

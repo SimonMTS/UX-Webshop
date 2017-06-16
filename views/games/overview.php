@@ -26,6 +26,7 @@
 						<span><?=$game['name'] ?></span>
 						<span><?=$game['price'] ?>,-</span>
 						<a class="btn btn-default view-btn" href="<?=$GLOBALS['config']['base_url'].'games/view/'.$game['id'] ?>">view</a>
+						<div></div>
 					</div>
 				</div>
 			</div>
