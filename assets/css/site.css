@@ -62,8 +62,8 @@ div .banner-img {
 div.overview-item {
     display: inline-block;
     position: relative;
-    width: 170px;
-    height: 200px;
+    width: 240px;
+    height: 290px;
     margin: 15px;
     background-color: #f8f8f8;
     border: 1px solid #ccc;
@@ -72,15 +72,36 @@ div.overview-item {
     background-position: center;
 }
 
-div.overview-item a.btn {
+div.center-games {
+	text-align: center;
+}
+
+div.search-games {
+    margin-left: 45px;
+}
+
+div.btn-games {
+	margin-left: 90px;
+}
+
+div.game-info {
+	background: #e5e5e5;
     position: absolute;
     bottom: 0;
     right: 0;
-    border-bottom: none;
-    border-right: none;
-    border-radius: 0px;
-    border-top-left-radius: 4px;
-    border-bottom-right-radius: 5px;
+    left: 0;
+    top: 210px;
+    opacity: 0.9;
+}
+
+div.overview-item a.edit-btn {
+    float: left;
+}
+
+div.overview-item a.view-btn {
+    position: absolute;
+	right: 5px;
+	bottom: 5px;
 }
 
 div.overview-item span {
@@ -97,13 +118,12 @@ div.overview-item span:first-child {
 }
 
 div.overview-item a.del {
-    position: absolute;
-    top: 0;
-    right: 0;
     font-weight: 900;
     color: red;
     text-decoration: none;
     padding: 0px 4px;
+    font-size: 20px;
+    float: right;
 }
 
 .search {

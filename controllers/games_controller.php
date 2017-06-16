@@ -24,9 +24,9 @@
 
             if (isset($_GET['var2'])) {
                 $search = base::Sanitize($_GET['var2']);
-                $games = Game::searchByName($search, 11, (($page - 1) * 11) );
+                $games = Game::searchByName($search, 12, (($page - 1) * 12) );
             } else {
-                $games = Game::searchByName('', 11, (($page - 1) * 11) );
+                $games = Game::searchByName('', 12, (($page - 1) * 12) );
             }
 
             if (isset($_GET['var2'])) {
