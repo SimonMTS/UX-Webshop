@@ -10,8 +10,8 @@
                 Base::Redirect($GLOBALS['config']['base_url'].'games/overview/1');
             }
 
-            if (isset($_GET['var1'])) {
-                $page = (int) Base::Sanitize( $_GET['var1'] );
+            if (isset($var[3])) {
+                $page = (int) Base::Sanitize( $var[3] );
                 if ($page < 1) {
                     $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                     $url = str_replace('0', '1', $url);
@@ -22,15 +22,15 @@
                 $page = 1;
             }
 
-            if (isset($_GET['var2'])) {
-                $search = base::Sanitize($_GET['var2']);
+            if (isset($var[4])) {
+                $search = base::Sanitize($var[4]);
                 $games = Game::searchByName($search, 12, (($page - 1) * 12) );
             } else {
                 $games = Game::searchByName('', 12, (($page - 1) * 12) );
             }
 
-            if (isset($_GET['var2'])) {
-                $searchpar = '/'.$_GET['var2'];
+            if (isset($var[4])) {
+                $searchpar = '/'.$var[4];
             } else {
                 $searchpar = null;
             }
@@ -43,7 +43,7 @@
         }
 
         public static function view() {
-            $id = Base::Sanitize( $_GET['var1'] );
+            $id = Base::Sanitize( $var[3] );
             $game = Game::Find($id);
             
             if ( $game ) {
@@ -90,7 +90,7 @@
 
         public static function edit() {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
-                $id = Base::Sanitize( $_GET['var1'] );
+                $id = Base::Sanitize( $var[3] );
                 $game = Game::find($id);
 
                 if (
@@ -124,7 +124,7 @@
 
         public static function delete() {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
-                $id = Base::Sanitize( $_GET['var1'] );
+                $id = Base::Sanitize( $var[3] );
                 $game = Game::find($id);
 
                 if ( $game ) { 

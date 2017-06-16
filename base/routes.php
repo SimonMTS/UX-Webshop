@@ -11,18 +11,16 @@
 
         if ( in_array( $action, $actions ) )
         {
-            $controller::{$action}();
+            $controller::{$action}($var);
         }
         else
         {
-            echo'asd';exit;
             require_once('controllers/pages_controller.php');
             pagesController::error();
         }
     }
     else
     {
-        var_dump($controller);exit;
         require_once('controllers/pages_controller.php');
         pagesController::error();
     }

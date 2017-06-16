@@ -39,8 +39,8 @@
                     Base::Redirect($GLOBALS['config']['base_url'].'users/overview/1');
                 }
 
-                if (isset($_GET['var1'])) {
-                    $page = (int) Base::Sanitize( $_GET['var1'] );
+                if (isset($var[3])) {
+                    $page = (int) Base::Sanitize( $var[3] );
                     if ($page < 1) {
                         $url = Base::Curl();
                         $url = str_replace('0', '1', $url);
@@ -51,15 +51,15 @@
                     $page = 1;
                 }
 
-                if (isset($_GET['var2'])) {
-                    $search = base::Sanitize($_GET['var2']);
+                if (isset($var[4])) {
+                    $search = base::Sanitize($var[4]);
                     $users = User::searchByName($search, 8, (($page - 1) * 8) );
                 } else {
                     $users = User::searchByName('', 8, (($page - 1) * 8) );
                 }
 
-                if (isset($_GET['var2'])) {
-                    $searchpar = '/'.$_GET['var2'];
+                if (isset($var[4])) {
+                    $searchpar = '/'.$var[4];
                 } else {
                     $searchpar = null;
                 }
@@ -74,8 +74,8 @@
             }
         }
 
-        public static function view() {
-            $id = Base::Sanitize( $_GET['var1'] );
+        public static function view($var) {
+            $id = Base::Sanitize( $var[2] );
             $user = User::Find($id);
 
             if ($user !== false && (($user->id == $_SESSION['user']['id'] && $user->password == Base::Hash_String( $_SESSION['user']['password'], $user->salt) ) || ($_SESSION['user']['role'] == 777))) {
@@ -141,7 +141,7 @@
         }
 
         public static function edit() {
-            $id = Base::Sanitize( $_GET['var1'] );
+            $id = Base::Sanitize( $var[3] );
             $user = User::find($id);
 
             if ($user !== false && (($user->id == $_SESSION['user']['id'] && $user->password == Base::Hash_String( $_SESSION['user']['password'], $user->salt )) || ($_SESSION['user']['role'] == 777))) {
@@ -188,7 +188,7 @@
 
         public static function delete() {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
-                $id = Base::Sanitize( $_GET['var1'] );
+                $id = Base::Sanitize( $var[3] );
                 $user = User::find($id);
 
                 if ($_SESSION['user']['role'] > $user->role) {

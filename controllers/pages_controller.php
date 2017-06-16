@@ -4,6 +4,7 @@
     class pagesController {
 
         public static function home() {
+
             $games = Game::findPopular(4);
 
             Base::Render('pages/home', [

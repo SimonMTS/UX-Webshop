@@ -6,7 +6,7 @@
     class paymentController {
 
         public static function setup() {
-            $id = Base::Sanitize( $_GET['var1'] );
+            $id = Base::Sanitize( $var[3] );
             $game = Game::Find($id);
 
             $mollie = new Mollie_API_Client;
