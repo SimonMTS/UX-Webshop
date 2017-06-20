@@ -11,6 +11,8 @@
                     <h2><?=$game->price ?>,-</h2>
                     <hr>
                     <a class="btn btn-default btn-lg" href="<?= $GLOBALS['config']['base_url'] ?>payment/setup/<?=$game->id ?>">Buy</a>
+                    <br>
+                    <br>
                 </div>
             </div>
         </div>

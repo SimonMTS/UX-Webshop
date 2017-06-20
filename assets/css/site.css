@@ -59,6 +59,34 @@ div.banner-img {
     display: none;
 }
 
+div.error-page {
+    background-color: #f1f1f1;
+    height: calc(100vh - 52px);
+    overflow: hidden;
+}
+
+div.error-page div.row div.col-sm-offset-4 {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+    margin-top: 50vh;
+    -webkit-transform: translateY(-70%);
+    -moz-transform: translateY(-70%);
+    transform: translateY(-70%);
+}
+
+div.error-page h1 {
+    font-size: 100px;
+}
+
+div.error-page a {
+    margin-left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
 div.user-profile {
     /*background-color: beige;*/
 }
@@ -289,11 +317,11 @@ div.user-list-item a.edit {
 
 div.game-view {
     background-color: #f1f1f1;
-    height: calc(100vh - 52px);
+    min-height: calc(100vh - 52px);
     overflow: hidden;
 }
 
-div.game-view div.row div.col-md-offset-1{
+div.game-view div.row div.col-md-offset-1 {
     background-color: white;
     margin-top: 20px;
     border-radius: 5px;
