@@ -31,16 +31,17 @@
             Base::Redirect($GLOBALS['config']['base_url']);
         }
 
-        public static function overview() {
+        public static function overview($var) {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
+
 				if (isset($_POST['var2']) && !empty($_POST['var2'])) {
                     Base::Redirect($GLOBALS['config']['base_url'].'users/overview/1/'.Base::Sanitize($_POST['var2']));
                 } elseif (isset($_POST['var2']) && empty($_POST['var2'])) {
                     Base::Redirect($GLOBALS['config']['base_url'].'users/overview/1');
                 }
 
-                if (isset($var[3])) {
-                    $page = (int) Base::Sanitize( $var[3] );
+                if (isset($var[2])) {
+                    $page = (int) Base::Sanitize( $var[2] );
                     if ($page < 1) {
                         $url = Base::Curl();
                         $url = str_replace('0', '1', $url);
@@ -51,15 +52,15 @@
                     $page = 1;
                 }
 
-                if (isset($var[4])) {
-                    $search = base::Sanitize($var[4]);
+                if (isset($var[3])) {
+                    $search = base::Sanitize($var[3]);
                     $users = User::searchByName($search, 8, (($page - 1) * 8) );
                 } else {
                     $users = User::searchByName('', 8, (($page - 1) * 8) );
                 }
 
-                if (isset($var[4])) {
-                    $searchpar = '/'.$var[4];
+                if (isset($var[3])) {
+                    $searchpar = '/'.$var[3];
                 } else {
                     $searchpar = null;
                 }
@@ -67,7 +68,8 @@
                 Base::Render('users/overview', [
                     'users' => $users,
                     'page' => $page,
-                    'searchpar' => $searchpar
+                    'searchpar' => $searchpar,
+                    'var' => $var
                 ]);
             } else {
                 Base::Render('pages/error');
@@ -83,7 +85,7 @@
                 
                 Base::Render('users/view', [
                     'user' => $user,
-                    'orders' => $orders
+                    'orders' => array_reverse($orders)
                 ]);
             } else {
                 Base::Render('pages/error');

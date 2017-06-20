@@ -77,7 +77,7 @@
             }
         }
 
-        public function addView( $id ) {
+        public static function addView( $id ) {
             $game = self::find($id);
             if ( $game ) {
                 Sql::Update('game', 'id', $id, [

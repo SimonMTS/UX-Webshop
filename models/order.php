@@ -2,7 +2,8 @@
 
     class Order {
         public $id;
-        public $descr;
+        public $game_name;
+        public $game_id;
         public $amount;
         public $method;
         public $status;
@@ -10,9 +11,10 @@
         public $details_consumerName;
         public $details_consumerAccount;
 
-        public function __construct($id, $descr, $amount, $method, $status, $paidDatetime, $details_consumerName, $details_consumerAccount) {
+        public function __construct($id, $game_name, $game_id, $amount, $method, $status, $paidDatetime, $details_consumerName, $details_consumerAccount) {
             $this->id = $id;
-            $this->descr = $descr;
+            $this->game_name = $game_name;
+            $this->game_id = $game_id;
             $this->amount = $amount;
             $this->method = $method;
             $this->status = $status;
@@ -30,7 +32,8 @@
 
             if (
                 isset($result[0]['id']) &&
-                isset($result[0]['descr']) &&
+                isset($result[0]['game_name']) &&
+                isset($result[0]['game_id']) &&
                 isset($result[0]['amount']) &&
                 isset($result[0]['method']) &&
                 isset($result[0]['status']) &&
@@ -40,7 +43,8 @@
             ) {
                 return new Order(
                     $result[0]['id'],
-                    $result[0]['descr'],
+                    $result[0]['game_name'],
+                    $result[0]['game_id'],
                     $result[0]['amount'],
                     $result[0]['method'],
                     $result[0]['status'],
@@ -65,7 +69,8 @@
                 Sql::Save('game_order', [
                     'id' => $this->id,
                     'user_id' => $_SESSION['user']['id'],
-                    'descr' => $this->descr,
+                    'game_name' => $this->game_name,
+                    'game_id' => $this->game_id,
                     'amount' => $this->amount,
                     'method' => $this->method,
                     'status' => $this->status,
@@ -79,7 +84,8 @@
                 Sql::Update('game_order', 'id', $this->id, [
                     'id' => $this->id,
                     'user_id' => $_SESSION['user']['id'],
-                    'descr' => $this->descr,
+                    'game_name' => $this->game_name,
+                    'game_id' => $this->game_id,
                     'amount' => $this->amount,
                     'method' => $this->method,
                     'status' => $this->status,

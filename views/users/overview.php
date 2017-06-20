@@ -3,7 +3,7 @@
 		<div class="col-md-3 col-xs-8">
 			<form method="POST">
 				<div class="input-group search">
-					<input name="var2" value="<?php if (isset ($var[4])) { echo $var[4]; } ?>" type="text" class="form-control" placeholder="Search for...">
+					<input name="var2" value="<?php if (isset ($var[3])) { echo $var[3]; } ?>" type="text" class="form-control" placeholder="Search for...">
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="submit">Go!</button>
 					</span>

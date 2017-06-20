@@ -5,8 +5,8 @@
 
     class paymentController {
 
-        public static function setup() {
-            $id = Base::Sanitize( $var[3] );
+        public static function setup($var) {
+            $id = Base::Sanitize( $var[2] );
             $game = Game::Find($id);
 
             $mollie = new Mollie_API_Client;
@@ -20,6 +20,7 @@
             ]);
 
             $_SESSION['payment_id'] = $init_payment->id;
+            $_SESSION['game_id'] = $game->id;
 
             $payment = $mollie->payments->get($init_payment->id);
             
@@ -49,6 +50,7 @@
                 $order = new Order(
                     str_replace('tr_', '', $init_payment_id ),
                     $payment->description,
+                    $_SESSION['game_id'],
                     (int) $payment->amount,
                     $payment->method,
                     $payment->status,
@@ -56,6 +58,8 @@
                     $details_consumerName,
                     $details_consumerAccount
                 );
+
+                //stuur game//
                 
                 if ( $order->Save() ) {
                     Base::Render('payment/confirm', [

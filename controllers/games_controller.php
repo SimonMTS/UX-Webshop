@@ -42,8 +42,8 @@
             ]);
         }
 
-        public static function view() {
-            $id = Base::Sanitize( $var[3] );
+        public static function view($var) {
+            $id = Base::Sanitize( $var[2] );
             $game = Game::Find($id);
             
             if ( $game ) {
