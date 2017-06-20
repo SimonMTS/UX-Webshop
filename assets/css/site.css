@@ -76,6 +76,10 @@ div.user-profile label {
     width: 150px;
 }
 
+div.user-profile a {
+    margin-top: -35px;
+}
+
 div.order-list {
     padding: 30px 10px 0 10px;
     height: calc(100vh - 53px);
@@ -96,7 +100,7 @@ div.order-list div div {
     margin: 15px auto;
     height: 100px;
     overflow: hidden;
-    background-color: #a0a8b0;
+    background-color: #d5d5d5;
 }
 
 div.order-list div div a {
@@ -108,7 +112,7 @@ div.order-list div div a {
 
 div.order-list div div a span {
     display: inline-block;
-    color: white;
+    color: #4e4e4e;
     height: 30px;
     font-size: 15px;
     padding: 5px;
@@ -119,19 +123,19 @@ div.order-list div div a span {
 }
 
 div.order-list div div a.left:hover {
-    background: #858c93;
-    background: -webkit-linear-gradient(left, #858c93, #a0a8b0);
-    background: -moz-linear-gradient(left, #858c93, #a0a8b0);
-    background: -o-linear-gradient(left, #858c93, #a0a8b0);
-    background: linear-gradient(to right, #858c93, #a0a8b0);
+    background: #d5d5d5;
+    background: -webkit-linear-gradient(left, #bebebe, #d5d5d5);
+    background: -moz-linear-gradient(left, #bebebe, #d5d5d5);
+    background: -o-linear-gradient(left, #bebebe, #d5d5d5);
+    background: linear-gradient(to right, #bebebe, #d5d5d5);
 }
 
 div.order-list div div a.right:hover {
-    background: #858c93;
-    background: -webkit-linear-gradient(left, #a0a8b0, #858c93);
-    background: -moz-linear-gradient(left, #a0a8b0, #858c93);
-    background: -o-linear-gradient(left, #a0a8b0, #858c93);
-    background: linear-gradient(to right, #a0a8b0, #858c93);
+    background: #d5d5d5;
+    background: -webkit-linear-gradient(left, #d5d5d5, #bebebe);
+    background: -moz-linear-gradient(left, #d5d5d5, #bebebe);
+    background: -o-linear-gradient(left, #d5d5d5, #bebebe);
+    background: linear-gradient(to right, #d5d5d5, #bebebe);
 }
 
 div.order-list div div a span.full-w {
@@ -281,4 +285,28 @@ div.user-list-item a.edit {
     position: absolute;
     right: 10px;
     bottom: 30px;
+}
+
+div.game-view {
+    background-color: #f1f1f1;
+    height: calc(100vh - 52px);
+    overflow: hidden;
+}
+
+div.game-view div.row div.col-md-offset-1{
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+div.game-view div.img {
+    margin: 15px 0;
+    height: 70vh;
+    width: 100%;
+    display: block;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+    float: left;
 }

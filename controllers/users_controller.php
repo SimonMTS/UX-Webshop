@@ -142,8 +142,8 @@
             }
         }
 
-        public static function edit() {
-            $id = Base::Sanitize( $var[3] );
+        public static function edit($var) {
+            $id = Base::Sanitize( $var[2] );
             $user = User::find($id);
 
             if ($user !== false && (($user->id == $_SESSION['user']['id'] && $user->password == Base::Hash_String( $_SESSION['user']['password'], $user->salt )) || ($_SESSION['user']['role'] == 777))) {
