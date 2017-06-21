@@ -121,6 +121,17 @@ div.order-list div {
     overflow-y: scroll;
 }
 
+div.order-list div span.no-p {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 4vw;
+    margin-top: 50%;
+    -webkit-transform: translateY(-70%);
+    -moz-transform: translateY(-70%);
+    transform: translateY(-70%);
+}
+
 div.order-list div div {
     width: calc(100% - 30px);
     max-width: 500px;

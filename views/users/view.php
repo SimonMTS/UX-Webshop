@@ -13,11 +13,13 @@
 			<label>Adress: </label>Teugenaarsstraat 86, oss<br>
 			<label>Registration date: </label>20/05/2017<br>
 			<hr>
-			<label>Number of purchases: </label><?= sizeof($orders) ?><br>
-
+			<label>Number of purchases: </label><?= sizeof($orders) ?><br><br>
 		</div>
-		<div class="col-md-8 order-list">
-			<div style="display: none;">
+		<div class="col-md-8 order-list <?php if (sizeof($orders) == 0) : ?>hidden-sm hidden-xs<?php endif; ?>">
+			<div style="display: none;" class="">
+				<?php if (sizeof($orders) == 0) : ?>
+					<span class="no-p">No purchases yet</span>
+				<?php endif; ?>
 				<?php foreach ($orders as $order) : ?>
 					<div>
 						<a class="left" href="<?=$GLOBALS['config']['base_url'].'orders/view/'.$order['id'] ?>">
