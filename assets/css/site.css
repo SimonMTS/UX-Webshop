@@ -59,6 +59,11 @@ div.banner-img {
     display: none;
 }
 
+.birth {
+    width: 32.5%;
+    display: inline-block;
+}
+
 div.error-page {
     background-color: #f1f1f1;
     height: calc(100vh - 52px);
@@ -348,4 +353,17 @@ div.game-view div.img {
     background-position: center;
     border-radius: 5px;
     float: left;
+}
+
+div.order-view {
+    background-color: #f1f1f1;
+    min-height: calc(100vh - 52px);
+    overflow: hidden;
+}
+
+div.order-view div.row div.col-sm-offset-3 {
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }

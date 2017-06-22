@@ -6,9 +6,13 @@
             $id = Base::Sanitize( $var[2] );
             $order = Order::Find($id);
 
-            Base::Render('orders/view', [
-                'order' => $order
-            ]);
+            if (isset($order->method)) {
+                Base::Render('orders/view', [
+                    'order' => $order
+                ]);
+            } else {
+                Base::Render('pages/error');
+            }
         }
     }
 ?>

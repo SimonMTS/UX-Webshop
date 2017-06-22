@@ -6,6 +6,10 @@
     class paymentController {
 
         public static function setup($var) {
+            if (!isset($_SESSION['user']['role'])) {
+                Base::Redirect($GLOBALS['config']['base_url'] . 'users/create');
+            }
+
             $id = Base::Sanitize( $var[2] );
             $game = Game::Find($id);
 
