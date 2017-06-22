@@ -7,9 +7,11 @@
         ],
 
         'Default_Title' => 'UXXX',
-        // 'base_url' => 'https://simon.aoweb.nl/',
+
         'base_url' => 'http://localhost/UX-Webshop/',
-        // 'DataBaseName' => "striekwold_uxxx"
-        'DataBaseName' => "uxxx"
+        // 'DataBaseName' => "uxxx"
+
+        // 'base_url' => 'https://simon.aoweb.nl/',
+        'DataBaseName' => "striekwold_uxxx"
     ];
 ?>

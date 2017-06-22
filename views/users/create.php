@@ -38,7 +38,7 @@
 					</select>
 					<br>
 					<br>					
-					<input class="form-control" type="text" placeholder="adres, bv: spoorlaan 12, 1234AB" name="user[adres]" required>
+					<input class="form-control" type="text" placeholder="adres, bv: spoorlaan 12, 1234AB Oss Nederland" name="user[adres]" required>
 					<br>
 					<input class="btn btn-default" type="submit" value="Register">
 				</div>

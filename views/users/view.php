@@ -6,19 +6,24 @@
 			<?=User::Role($user->role) ?>
 			<a href="<?= $GLOBALS['config']['base_url'] ?>users/edit/<?=$user->id ?>" class="btn btn-default pull-right">edit</a>
 			<hr>
-			<label>Firstname: </label>Simon<br>
-			<label>Lastname: </label>Striekwold<br>
-			<label>Gender: </label>Male<br>
-			<label>Age: </label>18 y/o<br>
-			<label>Adress: </label>Teugenaarsstraat 86, oss<br>
-			<label>Registration date: </label>20/05/2017<br>
+			<label>Voornaam: </label><?=$user->voornaam ?><br>
+			<label>Achternaam: </label><?=$user->achternaam ?><br>
+			<label>Geslacht: </label><?=$user->geslacht ?><br>
+			<label>Leeftijd: </label><?php
+				$datetime1 = new DateTime();
+				$datetime2 = DateTime::createFromFormat('j/m/Y', $user->geboorte_datum);
+				$interval = $datetime1->diff($datetime2);
+				echo $interval->format('%y');
+			?> y/o<br>
+			<label>Adres: </label><?=$user->adres ?><br>
+			<label>Registration date: </label>~20/05/2017<br>
 			<hr>
-			<label>Number of purchases: </label><?= sizeof($orders) ?><br><br>
+			<label>Aantal aankopen: </label><?= sizeof($orders) ?><br><br>
 		</div>
 		<div class="col-md-8 order-list <?php if (sizeof($orders) == 0) : ?>hidden-sm hidden-xs<?php endif; ?>">
 			<div style="display: none;" class="">
 				<?php if (sizeof($orders) == 0) : ?>
-					<span class="no-p">No purchases yet</span>
+					<span class="no-p">Nog geen aankopen</span>
 				<?php endif; ?>
 				<?php foreach ($orders as $order) : ?>
 					<div>

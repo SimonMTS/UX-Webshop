@@ -17,9 +17,11 @@
         }
 
         private static function setupdb() {
-            Sql::RemoveDB('uxxx');
+            // Sql::RemoveDB('uxxx');
+            Sql::RemoveDB('striekwold_uxxx');
 
-            Sql::CreateDB('uxxx');
+            // Sql::CreateDB('uxxx');
+            Sql::CreateDB('striekwold_uxxx');
             
             Sql::CreateTable('game', [
                 'id' => 'varchar(256)',
@@ -77,7 +79,7 @@
                 'Striekwold',
                 'm',
                 '19/3/1999',
-                'Teugenaarsstraat 86, 5348JE'
+                'Teugenaarsstraat 86, 5348JE Oss Nederland'
             );
             
             for ($i=1; $i < 20; $i++) {
@@ -93,8 +95,8 @@
                     'voornaam'.$i,
                     'achternaam'.$i,
                     'm',
-                    '27/6/1998',
-                    'spoorlaan 12, 9283LK'
+                    '27/6/1993',
+                    'spoorlaan 12, 9283LK Oss Nederland'
                 );
             }
 
@@ -173,7 +175,7 @@
                     'name' => "Test Game $i",
                     'price' => 60,
                     'descr' => "Lorem ipsum dolor sit amet, ea viderer postulant vel, eam nominavi insolens ea, no per denique conceptam. In homero torquatos conclusionemque mea, vix ornatus nominavi appellantur eu, ea nec pertinacia interesset.",
-                    'cover' => 'assets/img/noPicture.png',
+                    'cover' => 'assets/noPicture.png',
                     'views' => 0
                 ];
             }
