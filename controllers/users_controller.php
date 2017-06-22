@@ -80,7 +80,7 @@
             $id = Base::Sanitize( $var[2] );
             $user = User::Find($id);
 
-            if ($user !== false && (($user->id == $_SESSION['user']['id'] && $user->password == Base::Hash_String( $_SESSION['user']['password'], $user->salt) ) || ($_SESSION['user']['role'] == 777))) {
+            if ($user !== false && (($user->id == $_SESSION['user']['id'] && $user->password == $_SESSION['user']['password']) || ($_SESSION['user']['role'] == 777))) {
                 $orders = Order::FindByUser($id);
                 
                 Base::Render('users/view', [
@@ -98,7 +98,13 @@
                 isset($_POST['user']['name']) && !empty($_POST['user']['name']) &&
                 isset($_POST['user']['password']) && !empty($_POST['user']['password']) &&
                 $_POST['user']['password'] === $_POST['user']['passwordrep'] &&
-                !user::findByName($_POST['user']['name'])
+                !user::findByName($_POST['user']['name']) &&
+                
+                isset($_POST['user']['voornaam']) && !empty($_POST['user']['voornaam']) &&
+                isset($_POST['user']['achternaam']) && !empty($_POST['user']['achternaam']) &&
+                isset($_POST['user']['geslacht']) && !empty($_POST['user']['geslacht']) &&
+                isset($_POST['user']['geboorte_datum']) && sizeof($_POST['user']['geboorte_datum']) == 3 &&
+                isset($_POST['user']['adres']) && !empty($_POST['user']['adres'])
             ) {
                 if ( $_FILES['pic']['size'] > 0 ) {
                     $pic = Base::Upload_file( $_FILES['pic'] );
@@ -114,9 +120,14 @@
                     Base::Hash_String( $_POST['user']['password'], $salt ),
                     $salt,
                     1,
-                    $pic
+                    $pic,
+                    Base::Sanitize( $_POST['user']['voornaam'] ),
+                    Base::Sanitize( $_POST['user']['achternaam'] ),
+                    Base::Sanitize( $_POST['user']['geslacht'] ),
+                    implode( '/', $_POST['user']['geboorte_datum'] ),
+                    Base::Sanitize( $_POST['user']['adres'] )
                 );
-
+                
                 if ($user->save()) {
                     if ( !isset($_SESSION['user']) ) {
                         $_SESSION['user'] = [
@@ -156,7 +167,7 @@
                     $user->name = Base::Sanitize( $_POST['user']['name'] );
 
                     if (!empty($_POST['user']['password'])) {
-                        $user->password = Base::Hash_String($_POST['user']['password']);
+                        $user->password = Base::Hash_String($_POST['user']['password'], $user->salt);
                     }
 
                     if ($_FILES['pic']['size'] > 0) {
@@ -188,12 +199,12 @@
             }
         }
 
-        public static function delete() {
+        public static function delete($var) {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
-                $id = Base::Sanitize( $var[3] );
+                $id = Base::Sanitize( $var[2] );
                 $user = User::find($id);
 
-                if ($_SESSION['user']['role'] > $user->role) {
+                if ($_SESSION['user']['role'] == $user->role) {
                     $user->delete();
                     Base::Redirect($GLOBALS['config']['base_url'] . 'users/overview');
                 } else {
@@ -201,25 +212,6 @@
                 }
             } else {
                 Base::Render('pages/error');
-            }
-        }
-
-        public static function addusers() {
-            for ($i=1; $i < 20; $i++) {
-                $salt = Base::Genetate_id();
-
-                $usr = new User(
-                    Base::Genetate_id(),
-                    Base::Sanitize('test'.$i ),
-                    Base::Hash_String('test'.$i, $salt),
-                    $salt,
-                    1,
-                    'assets/img/user.png'
-                );
-
-                if ( !$usr->save() ) {
-                    echo'error';exit;
-                }
             }
         }
     }

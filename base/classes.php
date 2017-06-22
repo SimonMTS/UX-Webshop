@@ -92,7 +92,7 @@
 
         // Sql::Get('user', 'id', 'test_id');
         public static function Get($table, $row = '1', $where = '1') {
-            $db = Sql::getInstance();
+            $db = self::getInstance();
 
             try {
                 $req = $db->prepare("SELECT * FROM $table WHERE $row = :where");
@@ -107,7 +107,7 @@
 
         //
         public static function GetSorted($table, $row, $limit = 4) {
-            $db = Sql::getInstance();
+            $db = self::getInstance();
 
             try {
                 $req = $db->prepare("SELECT * FROM $table ORDER BY $row DESC LIMIT $limit");
@@ -122,7 +122,7 @@
 
         // Sql::Search('user', 'name', 'beheerder1');
         public static function Search($table, $row = '', $like = '', $limit = 11, $offset = 0) {
-            $db = Sql::getInstance();
+            $db = self::getInstance();
 
             try {
                 $req = $db->prepare("SELECT * FROM $table WHERE $row LIKE :like LIMIT $limit OFFSET $offset");
@@ -145,7 +145,7 @@
         //     'role' => 1,
         // ]);
         public static function Save($table, $values) {
-            $db = Sql::getInstance();
+            $db = self::getInstance();
 
             $vals = '';
             $names = '';
@@ -179,7 +179,7 @@
         //     'salt' => 'test_slat',
         // ]);
         public static function Update($table, $row, $where, $values) {
-            $db = Sql::getInstance();
+            $db = self::getInstance();
 
             $changes = '';
             $exec_arr = [
@@ -209,12 +209,11 @@
         // Sql::Delete('user', 'id', 'test_id');
         public static function Delete($table, $row, $where) {
             if (isset($row) && isset($where)) {
-                $db = Sql::getInstance();
+                $db = self::getInstance();
 
                 try {
                     $req = $db->prepare("DELETE FROM $table WHERE $row = :where");
                     $req->execute([':where' => $where]);
-                    // $res = $req->fetch();
                 } catch( PDOException $Exception ) {
                     return $Exception->getMessage();
                 }
@@ -222,6 +221,87 @@
                 return true;
             } else {
                 return false;
+            }
+        }
+
+        // Sql::RemoveDB('uxxx');
+        public static function RemoveDB($name) {
+            if (isset($name) && !empty($name)) {
+                $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+                $db = new PDO('mysql:host=localhost', 'root', '', $pdo_options);
+
+                try {
+                    $req = $db->prepare("DROP DATABASE `$name`");
+                    $req->execute();
+                } catch( PDOException $Exception ) {
+                    return $Exception->getMessage();
+                }
+
+                return true;
+            }
+        }
+
+        // Sql::CreateDB('uxxx');
+        public static function CreateDB($name) {
+            if (isset($name) && !empty($name)) {
+                $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+                $db = new PDO('mysql:host=localhost', 'root', '', $pdo_options);
+
+                try {
+                    $req = $db->prepare("CREATE DATABASE `$name`");
+                    $req->execute();
+                } catch( PDOException $Exception ) {
+                    return $Exception->getMessage();
+                }
+
+                return true;
+            }
+        }
+
+        // Sql::CreateTable('game', [
+        //     'id' => 'varchar(256)',
+        //     'name' => 'varchar(256)',
+        //     'price' => 'int(10)',
+        //     'descr' => 'longtext',
+        //     'cover' => 'varchar(256)',
+        //     'views' => 'int(20)'
+        // ]);
+        public static function CreateTable($dbn, $prop) {
+            if (isset($dbn) && !empty($dbn) && isset($prop) && sizeof($prop) > 0) {
+                $db = self::getInstance();
+                $cols = '';
+
+                foreach ($prop as $key => $value) {
+                    $cols = $cols.'`'.$key.'` '.$value;
+                    if (sizeof($prop) > sizeof(explode(',', $cols))) {
+                        $cols = $cols.', ';
+                    }
+                }
+                
+                try {
+                    $req = $db->prepare("CREATE TABLE $dbn ( $cols ) ");
+                    $req->execute();
+                } catch( PDOException $Exception ) {
+                    return $Exception->getMessage();
+                }
+
+                return true;
+            }
+        }
+
+        // Sql::AddPKey('game', 'id');
+        public static function AddPKey($dbn, $prop) {
+            if (isset($dbn) && !empty($dbn) && isset($prop) && !empty($prop)) {
+                $db = self::getInstance();
+                
+                try {
+                    $req = $db->prepare("ALTER TABLE `$dbn` ADD PRIMARY KEY(`$prop`)");
+                    $req->execute();
+                } catch( PDOException $Exception ) {
+                    return $Exception->getMessage();
+                }
+
+                return true;
             }
         }
     }

@@ -10,8 +10,8 @@
 		<link rel="stylesheet" href="<?= $GLOBALS['config']['base_url'] ?>assets/css/site.css">
 
 		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-		<link rel="shortcut icon" href="<?= $GLOBALS['config']['base_url'] ?>assets/img/favicon.ico" />
-		<link rel="icon" href="<?= $GLOBALS['config']['base_url'] ?>assets/img/favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="<?= $GLOBALS['config']['base_url'] ?>assets/favicon.ico" />
+		<link rel="icon" href="<?= $GLOBALS['config']['base_url'] ?>assets/favicon.ico" type="image/x-icon" />
 
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,7 +27,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="<?= $GLOBALS['config']['base_url'] ?>"><img alt="Brand" class="header-img" src="<?= $GLOBALS['config']['base_url'] ?>assets/img/UXXX.png"></a>
+					<a class="navbar-brand" href="<?= $GLOBALS['config']['base_url'] ?>"><img alt="Brand" class="header-img" src="<?= $GLOBALS['config']['base_url'] ?>assets/UXXX.png"></a>
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">

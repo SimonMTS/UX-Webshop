@@ -20,7 +20,7 @@
 						<option value="m">Man</option>
 						<option value="f">Vrouw</option>
 					</select>
-					<br>					
+					<br>
 					<select class="form-control birth" name="user[geboorte_datum][0]" required>
 						<?php for ($i=1; $i < 32; $i++) : ?>
 							<option value="<?=$i ?>"><?=$i ?></option>
@@ -38,7 +38,7 @@
 					</select>
 					<br>
 					<br>					
-					<input class="form-control" type="text" placeholder="adres, spoorlaan 12, 1234AB" name="user[adres]" required>
+					<input class="form-control" type="text" placeholder="adres, bv: spoorlaan 12, 1234AB" name="user[adres]" required>
 					<br>
 					<input class="btn btn-default" type="submit" value="Register">
 				</div>

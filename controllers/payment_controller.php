@@ -1,5 +1,5 @@
 <?php
-    require_once "Mollie/API/Autoloader.php";
+    require_once "base/Mollie/API/Autoloader.php";
     require_once "models/game.php";
     require_once "models/order.php";
 

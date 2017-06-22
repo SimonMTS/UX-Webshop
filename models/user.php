@@ -4,15 +4,41 @@
         public $id;
         public $name;
         public $password;
+        public $salt;
         public $role;
+        public $pic;
 
-        public function __construct($id, $name, $password, $salt, $role, $pic) {
+        public $voornaam;
+        public $achternaam;
+        public $geslacht;
+        public $geboorte_datum;
+        public $adres;
+
+        public function __construct(
+            $id, 
+            $name, 
+            $password, 
+            $salt, 
+            $role, 
+            $pic, 
+            $voornaam, 
+            $achternaam, 
+            $geslacht, 
+            $geboorte_datum, 
+            $adres
+        ) {
             $this->id = $id;
             $this->name = $name;
             $this->password = $password;
             $this->salt = $salt;
             $this->role = $role;
             $this->pic = $pic;
+
+            $this->voornaam = $voornaam;
+            $this->achternaam = $achternaam;
+            $this->geslacht = $geslacht;
+            $this->geboorte_datum = $geboorte_datum;
+            $this->adres = $adres;
         }
 
         public static function role($text) {
@@ -52,7 +78,12 @@
                 isset($result[0]['password']) &&
                 isset($result[0]['salt']) &&
                 isset($result[0]['role']) &&
-                isset($result[0]['pic'])
+                isset($result[0]['pic']) &&
+                isset($result[0]['voornaam']) &&
+                isset($result[0]['achternaam']) &&
+                isset($result[0]['geslacht']) &&
+                isset($result[0]['geboorte_datum']) &&
+                isset($result[0]['adres'])
             ) {
                 return new User(
                     $result[0]['id'],
@@ -60,7 +91,12 @@
                     $result[0]['password'],
                     $result[0]['salt'],
                     $result[0]['role'],
-                    $result[0]['pic']);
+                    $result[0]['pic'],
+                    $result[0]['voornaam'],
+                    $result[0]['achternaam'],
+                    $result[0]['geslacht'],
+                    $result[0]['geboorte_datum'],
+                    $result[0]['adres']);
             } else {
                 return false;
             }
@@ -76,7 +112,12 @@
                 isset($result[0]['password']) &&
                 isset($result[0]['salt']) &&
                 isset($result[0]['role']) &&
-                isset($result[0]['pic'])
+                isset($result[0]['pic']) &&
+                isset($result[0]['voornaam']) &&
+                isset($result[0]['achternaam']) &&
+                isset($result[0]['geslacht']) &&
+                isset($result[0]['geboorte_datum']) &&
+                isset($result[0]['adres'])
             ) {
                 return new User(
                     $result[0]['id'],
@@ -84,7 +125,12 @@
                     $result[0]['password'],
                     $result[0]['salt'],
                     $result[0]['role'],
-                    $result[0]['pic']);
+                    $result[0]['pic'],
+                    $result[0]['voornaam'],
+                    $result[0]['achternaam'],
+                    $result[0]['geslacht'],
+                    $result[0]['geboorte_datum'],
+                    $result[0]['adres']);
             } else {
                 return $result;
             }
@@ -102,16 +148,25 @@
 
         public function save() {
             if ( !self::find($this->id) ) {
-                Sql::Save('user', [
-                    'id' => $this->id,
-                    'name' => $this->name,
-                    'password' => $this->password,
-                    'salt' => $this->salt,
-                    'role' => $this->role,
-                    'pic' => $this->pic
-                ]);
+                if ( !self::findByName($this->name) ) {
+                    Sql::Save('user', [
+                        'id' => $this->id,
+                        'name' => $this->name,
+                        'password' => $this->password,
+                        'salt' => $this->salt,
+                        'role' => $this->role,
+                        'pic' => $this->pic,
+                        'voornaam' => $this->voornaam,
+                        'achternaam' => $this->achternaam,
+                        'geslacht' => $this->geslacht,
+                        'geboorte_datum' => $this->geboorte_datum,
+                        'adres' => $this->adres
+                    ]);
 
-                return true;
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 Sql::Update('user', 'id', $this->id, [
                     'id' => $this->id,
@@ -119,7 +174,12 @@
                     'password' => $this->password,
                     'salt' => $this->salt,
                     'role' => $this->role,
-                    'pic' => $this->pic
+                    'pic' => $this->pic,
+                    'voornaam' => $this->voornaam,
+                    'achternaam' => $this->achternaam,
+                    'geslacht' => $this->geslacht,
+                    'geboorte_datum' => $this->geboorte_datum,
+                    'adres' => $this->adres
                 ]);
 
                 return true;
@@ -129,7 +189,7 @@
         public function delete() {
             $user = self::find($this->id);
 
-            if ($user->pic != 'assets/img/user.png') {
+            if (explode('/', $user->pic)[1] == 'img') {
                 if ( !unlink($user->pic) ) {
                     return false;
                 }
