@@ -88,9 +88,9 @@
             }
         }
 
-        public static function edit() {
+        public static function edit($var) {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
-                $id = Base::Sanitize( $var[3] );
+                $id = Base::Sanitize( $var[2] );
                 $game = Game::find($id);
 
                 if (

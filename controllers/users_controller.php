@@ -165,6 +165,11 @@
                     (empty($_POST['user']['password']) && empty($_POST['user']['passwordrep'])))
                 ) {
                     $user->name = Base::Sanitize( $_POST['user']['name'] );
+                    $user->voornaam = Base::Sanitize( $_POST['user']['voornaam'] );
+                    $user->achternaam = Base::Sanitize( $_POST['user']['achternaam'] );
+                    $user->geslacht = Base::Sanitize( $_POST['user']['geslacht'] );
+                    $user->geboorte_datum = implode( '/', $_POST['user']['geboorte_datum'] );
+                    $user->adres = Base::Sanitize( $_POST['user']['adres'] );
 
                     if (!empty($_POST['user']['password'])) {
                         $user->password = Base::Hash_String($_POST['user']['password'], $user->salt);

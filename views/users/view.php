@@ -15,9 +15,10 @@
 				$interval = $datetime1->diff($datetime2);
 				echo $interval->format('%y');
 			?> y/o<br>
-			<label>Adres: </label><?=$user->adres ?><br>
-			<label>Registration date: </label>~20/05/2017<br>
+			<label>Adres: </label><?=explode(',', $user->adres)[0] ?><br>
+			<label></label><?=explode(',', $user->adres)[1] ?><br>
 			<hr>
+			<label>Registration date: </label>~20/05/2017<br>
 			<label>Aantal aankopen: </label><?= sizeof($orders) ?><br><br>
 		</div>
 		<div class="col-md-8 order-list <?php if (sizeof($orders) == 0) : ?>hidden-sm hidden-xs<?php endif; ?>">
