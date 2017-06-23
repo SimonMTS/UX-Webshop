@@ -16,13 +16,11 @@
         else
         {
             require_once('controllers/pages_controller.php');
-            pagesController::error();
+            pagesController::error(404);
         }
     }
     else
     {
         require_once('controllers/pages_controller.php');
-        pagesController::error();
+        pagesController::error(404);
     }
-
-?>

@@ -5,22 +5,29 @@
     class setupController {
 
         public static function init($var) {
-            if ($var[2] != 'pw') {
-                echo'error<br><br>';exit;
+            $pw = 'pw';
+
+            if ( !(isset($var[2]) && $var[2] == $pw) && !(isset($var[2]) && $var[2] == $pw.'confirmed') ) {
+                echo'error: wrong password<br><br>';exit;
+            }
+
+            if ($var[2] == $pw) {
+                echo 'Are you sure you want to create/reset the database? <br><br> <a href="'.$GLOBALS['config']['base_url'].'setup/init/'.$pw.'confirmed">Yes</a>';
+                exit;
             }
 
             self::setupdb();
             self::addusers();
             self::addgames();
 
+            echo 'Admin login is:<br> -Name: beheerder<br> -Password: beheerder<br><br>';
+
             echo '<a href="' . $GLOBALS['config']['base_url'] . '">home</a>';
         }
 
         private static function setupdb() {
-            // Sql::RemoveDB('uxxx');
             Sql::RemoveDB('striekwold_uxxx');
 
-            // Sql::CreateDB('uxxx');
             Sql::CreateDB('striekwold_uxxx');
             
             Sql::CreateTable('game', [
@@ -198,4 +205,3 @@
             echo'done adding games<br><br>';
         }
     }
-?>

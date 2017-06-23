@@ -61,6 +61,23 @@
 
         }
 
+        public static function Error( $a = null, $b = null, $c = null, $d = null, $e = null, $f = null) {
+            if ( isset($a) && !isset($b) && !isset($c) && !isset($d) && !isset($e) && !isset($f) ) {
+                require_once('controllers/pages_controller.php');
+                pagesController::error($a->getcode(), $a);exit;
+            } else { 
+                require_once('controllers/pages_controller.php');
+                pagesController::error($a, [
+                    $a,
+                    $b,
+                    $c,
+                    $d,
+                    $e,
+                    $f
+                ]);exit;
+            }
+        }
+
         public static function Sanitize($string) {
             return htmlentities($string);
         }
@@ -305,4 +322,3 @@
             }
         }
     }
-?>

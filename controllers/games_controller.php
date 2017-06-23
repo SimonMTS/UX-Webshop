@@ -3,15 +3,16 @@
 
     class gamesController {
 
-        public static function overview() {
+        public static function overview($var) {
+
             if (isset($_POST['var2']) && !empty($_POST['var2'])) {
                 Base::Redirect($GLOBALS['config']['base_url'].'games/overview/1/'.Base::Sanitize($_POST['var2']));
             } elseif (isset($_POST['var2']) && empty($_POST['var2'])) {
                 Base::Redirect($GLOBALS['config']['base_url'].'games/overview/1');
             }
 
-            if (isset($var[3])) {
-                $page = (int) Base::Sanitize( $var[3] );
+            if (isset($var[2])) {
+                $page = (int) Base::Sanitize( $var[2] );
                 if ($page < 1) {
                     $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                     $url = str_replace('0', '1', $url);
@@ -22,15 +23,15 @@
                 $page = 1;
             }
 
-            if (isset($var[4])) {
-                $search = base::Sanitize($var[4]);
+            if (isset($var[3])) {
+                $search = base::Sanitize($var[3]);
                 $games = Game::searchByName($search, 12, (($page - 1) * 12) );
             } else {
                 $games = Game::searchByName('', 12, (($page - 1) * 12) );
             }
 
-            if (isset($var[4])) {
-                $searchpar = '/'.$var[4];
+            if (isset($var[3])) {
+                $searchpar = '/'.$var[3];
             } else {
                 $searchpar = null;
             }
@@ -54,7 +55,13 @@
                     'views' => $views
                 ]);
             } else {
-                Base::Render('pages/error');
+                Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Error',
+                        1 => 'Game not found'
+                    ]
+                ]);
             }
         }
 
@@ -78,13 +85,25 @@
                     if ($game->save()) {
                         Base::Redirect($GLOBALS['config']['base_url'].'games/overview');
                     } else {
-                        Base::Render('pages/error');
+                        Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Error',
+                        1 => 'Could not save game'
+                    ]
+                ]);
                     }
                 } else {
                     Base::Render('games/create');
                 }
             } else {
-                Base::Render('pages/error');
+                Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Denied',
+                        1 => 'This page requires admin privileges'
+                    ]
+                ]);
             }
         }
 
@@ -110,7 +129,13 @@
                     if ($game->save()) {
                         Base::Redirect($GLOBALS['config']['base_url'] . "games/view/" . $game->id);
                     } else {
-                        Base::Render('pages/error');
+                        Base::Render('pages/error', [
+                            'type' => 'custom',
+                            'data' => [
+                                0 => 'Error',
+                                1 => 'Could not save game'
+                            ]
+                        ]);
                     }
                 } else {
                     Base::Render('games/edit', [
@@ -118,7 +143,13 @@
                     ]);
                 }
             } else {
-                Base::Render('pages/error');
+                Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Denied',
+                        1 => 'This page requires admin privileges'
+                    ]
+                ]);
             }
         }
 
@@ -131,11 +162,22 @@
                     $game->delete();
                     Base::Redirect($GLOBALS['config']['base_url'] . 'games/overview');
                 } else {
-                    Base::Render('pages/error');
+                    Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Error',
+                        1 => 'Game not found'
+                    ]
+                ]);
                 }
             } else {
-                Base::Render('pages/error');
+                Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Denied',
+                        1 => 'This page requires admin privileges'
+                    ]
+                ]);
             }
         }
     }
-?>

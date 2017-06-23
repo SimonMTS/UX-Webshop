@@ -66,8 +66,7 @@ div.banner-img {
 
 div.error-page {
     background-color: #f1f1f1;
-    height: calc(100vh - 52px);
-    overflow: hidden;
+    min-height: calc(100vh - 52px);
 }
 
 div.error-page div.row div.col-sm-offset-4 {
@@ -75,17 +74,15 @@ div.error-page div.row div.col-sm-offset-4 {
     border-radius: 5px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 
-    margin-top: 50vh;
-    -webkit-transform: translateY(-70%);
-    -moz-transform: translateY(-70%);
-    transform: translateY(-70%);
+    margin-top: 100px;
+    margin-bottom: 50px;    
 }
 
 div.error-page h1 {
     font-size: 100px;
 }
 
-div.error-page a {
+div.error-page a.gth {
     margin-left: 50%;
     -webkit-transform: translateX(-50%);
     -moz-transform: translateX(-50%);

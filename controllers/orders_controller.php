@@ -11,8 +11,13 @@
                     'order' => $order
                 ]);
             } else {
-                Base::Render('pages/error');
+                Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Error',
+                        1 => 'Order not found'
+                    ]
+                ]);
             }
         }
     }
-?>

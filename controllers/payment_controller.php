@@ -74,11 +74,22 @@
                         'details_consumerAccount' => $details_consumerAccount
                     ]);
                 } else {
-                    Base::Render('pages/error');
+                    Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Error',
+                        1 => 'Could not save order'
+                    ]
+                ]);
                 }
             } else {
-                Base::Render('pages/error');
+                Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Error',
+                        1 => 'Payment failed'
+                    ]
+                ]);
             }
         }
     }
-?>

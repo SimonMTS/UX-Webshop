@@ -128,4 +128,3 @@
             Sql::Delete('game', 'id', $this->id);
         }
     }
-?>

@@ -72,7 +72,13 @@
                     'var' => $var
                 ]);
             } else {
-                Base::Render('pages/error');
+                Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Denied',
+                        1 => 'This page requires admin privileges'
+                    ]
+                ]);
             }
         }
 
@@ -88,7 +94,13 @@
                     'orders' => array_reverse($orders)
                 ]);
             } else {
-                Base::Render('pages/error');
+                Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Error',
+                        1 => 'User not found'
+                    ]
+                ]);
             }
         }
 
@@ -146,7 +158,13 @@
                         Base::Redirect($GLOBALS['config']['base_url']);
                     }
                 } else {
-                    Base::Render('pages/error');
+                    Base::Render('pages/error', [
+                        'type' => 'custom',
+                        'data' => [
+                            0 => 'Error',
+                            1 => 'Could not save user'
+                        ]
+                    ]);
                 }
             } else {
                 Base::Render('users/create');
@@ -192,7 +210,13 @@
                         }
                         Base::Redirect($GLOBALS['config']['base_url'] . "users/view/" . $user->id);
                     } else {
-                        Base::Render('pages/error');
+                        Base::Render('pages/error', [
+                            'type' => 'custom',
+                            'data' => [
+                                0 => 'Denied',
+                                1 => 'This page requires admin privileges'
+                            ]
+                        ]);
                     }
                 } else {
                     Base::Render('users/edit', [
@@ -200,7 +224,13 @@
                     ]);
                 }
             } else {
-                Base::Render('pages/error');
+                Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Denied',
+                        1 => 'This page requires admin privileges'
+                    ]
+                ]);
             }
         }
 
@@ -209,15 +239,26 @@
                 $id = Base::Sanitize( $var[2] );
                 $user = User::find($id);
 
-                if ($_SESSION['user']['role'] == $user->role) {
+                if ($_SESSION['user']['role'] > $user->role) {
                     $user->delete();
                     Base::Redirect($GLOBALS['config']['base_url'] . 'users/overview');
                 } else {
-                    Base::Render('pages/error');
+                    Base::Render('pages/error', [
+                       'type' => 'custom',
+                        'data' => [
+                            0 => 'Denied',
+                            1 => 'You can only delete user of a lower role than you own'
+                        ]
+                    ]);
                 }
             } else {
-                Base::Render('pages/error');
+                Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Denied',
+                        1 => 'This page requires admin privileges'
+                    ]
+                ]);
             }
         }
     }
-?>

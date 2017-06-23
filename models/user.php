@@ -198,4 +198,3 @@
             Sql::Delete('user', 'id', $this->id);
         }
     }
-?>

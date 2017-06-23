@@ -13,8 +13,10 @@
             ]);
         }
 
-        public static function error() {
-            Base::Render('pages/error');
+        public static function error($type = null, $data = null) {
+            Base::Render('pages/error', [
+                'type' => $type,
+                'data' => $data
+            ]);
         }
     }
-?>
