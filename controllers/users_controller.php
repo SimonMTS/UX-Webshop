@@ -86,7 +86,7 @@
             $id = Base::Sanitize( $var[2] );
             $user = User::Find($id);
 
-            if ($user !== false && (($user->id == $_SESSION['user']['id'] && $user->password == $_SESSION['user']['password']) || ($_SESSION['user']['role'] == 777))) {
+            if ($user !== false && isset($_SESSION['user']) && (($user->id == $_SESSION['user']['id'] && $user->password == $_SESSION['user']['password']) || ($_SESSION['user']['role'] == 777))) {
                 $orders = Order::FindByUser($id);
                 
                 Base::Render('users/view', [
@@ -175,7 +175,7 @@
             $id = Base::Sanitize( $var[2] );
             $user = User::find($id);
 
-            if ($user !== false && (($user->id == $_SESSION['user']['id'] && $user->password == Base::Hash_String( $_SESSION['user']['password'], $user->salt )) || ($_SESSION['user']['role'] == 777))) {
+            if ($user !== false && isset($_SESSION['user']) && (($user->id == $_SESSION['user']['id'] && $user->password == $_SESSION['user']['password']) || ($_SESSION['user']['role'] == 777))) {
                 if (
                     isset($_POST['user']) &&
                     isset($_POST['user']['name']) && !empty($_POST['user']['name']) &&
@@ -213,8 +213,8 @@
                         Base::Render('pages/error', [
                             'type' => 'custom',
                             'data' => [
-                                0 => 'Denied',
-                                1 => 'This page requires admin privileges'
+                                0 => 'Error',
+                                1 => 'Could not save user'
                             ]
                         ]);
                     }
