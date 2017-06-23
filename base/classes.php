@@ -105,7 +105,7 @@
             return $res;
         }
 
-        //
+        //Sql::GetSorted('game', 'views', 3)
         public static function GetSorted($table, $row, $limit = 4) {
             $db = self::getInstance();
 
