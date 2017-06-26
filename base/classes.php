@@ -101,7 +101,7 @@
         private static function getInstance() {
             if (!isset(self::$instance)) {
                 $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-                self::$instance = new PDO('mysql:host=localhost;dbname='.$GLOBALS['config']['DataBaseName'], 'root', '', $pdo_options);
+                self::$instance = new PDO('mysql:host=localhost;dbname='.$GLOBALS['config']['DataBaseName'], $GLOBALS['config']['DataBase_user'], $GLOBALS['config']['DataBase_password'], $pdo_options);
             }
             return self::$instance;
         }
@@ -245,7 +245,7 @@
         public static function RemoveDB($name) {
             if (isset($name) && !empty($name)) {
                 $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-                $db = new PDO('mysql:host=localhost', 'root', '', $pdo_options);
+                $db = new PDO('mysql:host=localhost', $GLOBALS['config']['DataBase_user'], $GLOBALS['config']['DataBase_password'], $pdo_options);
 
                 try {
                     $req = $db->prepare("DROP DATABASE `$name`");
@@ -262,7 +262,7 @@
         public static function CreateDB($name) {
             if (isset($name) && !empty($name)) {
                 $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-                $db = new PDO('mysql:host=localhost', 'root', '', $pdo_options);
+                $db = new PDO('mysql:host=localhost', $GLOBALS['config']['DataBase_user'], $GLOBALS['config']['DataBase_password'], $pdo_options);
 
                 try {
                     $req = $db->prepare("CREATE DATABASE `$name`");
