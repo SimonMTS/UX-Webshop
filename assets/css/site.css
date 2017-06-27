@@ -40,6 +40,21 @@ div.banner-img {
 	margin-top: 100px;
 	margin-bottom: 100px;
 }
+.createpage .form-group .form {
+	padding: 0px 2px; 
+}
+
+@media (min-width: 768px) {
+
+	.createpage .form-group .form:first-child {
+		padding-left: 0;
+	}
+
+	.createpage .form-group .form:last-child {
+		padding-right: 0;
+	}
+
+}
 
 .form1 {
 	margin-bottom: 10px;
@@ -57,11 +72,6 @@ div.banner-img {
     color: grey;
     cursor: not-allowed;
     display: none;
-}
-
-.birth {
-    width: 32.5%;
-    display: inline-block;
 }
 
 div.error-page {

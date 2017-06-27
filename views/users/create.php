@@ -21,24 +21,50 @@
 						<option value="f">Vrouw</option>
 					</select>
 					<br>
-					<select class="form-control birth" name="user[geboorte_datum][0]" required>
-						<?php for ($i=1; $i < 32; $i++) : ?>
-							<option value="<?=$i ?>"><?=$i ?></option>
-						<?php endfor; ?>
-					</select>
-					<select class="form-control birth" name="user[geboorte_datum][1]" required>
-						<?php for ($i=1; $i < 13; $i++) : ?>
-							<option value="<?=$i ?>"><?=$i ?></option>
-						<?php endfor; ?>
-					</select>
-					<select class="form-control birth" name="user[geboorte_datum][2]" required>
-						<?php for ($i=2017; $i > 1899; $i = $i - 1) : ?>
-							<option value="<?=$i ?>"><?=$i ?></option>
-						<?php endfor; ?>
-					</select>
+					<div class="form-group">
+					<div class="col-sm-4 form">
+						<select class="form-control birth" name="user[geboorte_datum][0]" required>
+							<?php for ($i=1; $i < 32; $i++) : ?>
+								<option value="<?=$i ?>"><?=$i ?></option>
+							<?php endfor; ?>
+						</select>
+					</div>
+					<div class="col-sm-4 form">
+						<select class="form-control birth" name="user[geboorte_datum][1]" required>
+							<?php for ($i=1; $i < 13; $i++) : ?>
+								<option value="<?=$i ?>"><?=$i ?></option>
+							<?php endfor; ?>
+						</select>
+					</div>
+					<div class="col-sm-4 form">
+						<select class="form-control birth" name="user[geboorte_datum][2]" required>
+							<?php for ($i=2017; $i > 1899; $i = $i - 1) : ?>
+								<option value="<?=$i ?>"><?=$i ?></option>
+							<?php endfor; ?>
+						</select>
+					</div>
+					</div>
 					<br>
-					<br>					
-					<input class="form-control" type="text" placeholder="adres, bv: spoorlaan 12, 1234AB Oss Nederland" name="user[adres]" required>
+					<br>	
+					<div class="form-group">
+						<div class="col-sm-8 form">
+							<input class="form-control" type="text" placeholder="Straatnaam" name="user[adres][0]" required>
+						</div>
+						<div class="col-sm-4 form">
+							<input class="form-control" type="text" placeholder="Huisnummer" name="user[adres][1]" required>
+						</div>
+					</div>
+					<br>
+					<br>
+					<div class="form-group">
+						<div class="col-sm-8 form">
+							<input class="form-control" type="text" placeholder="Plaats" name="user[adres][2]" required>
+						</div>
+						<div class="col-sm-4 form">
+							<input class="form-control" type="text" placeholder="Postcode" name="user[adres][3]" required>
+						</div>
+					</div>
+					<br>
 					<br>
 					<input class="btn btn-default" type="submit" value="Register">
 				</div>

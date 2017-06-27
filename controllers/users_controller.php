@@ -104,7 +104,7 @@
             }
         }
 
-        public static function create() {
+        public static function create() {			
             if (
                 isset($_POST['user']) &&
                 isset($_POST['user']['name']) && !empty($_POST['user']['name']) &&
@@ -116,9 +116,30 @@
                 isset($_POST['user']['achternaam']) && !empty($_POST['user']['achternaam']) &&
                 isset($_POST['user']['geslacht']) && !empty($_POST['user']['geslacht']) &&
                 isset($_POST['user']['geboorte_datum']) && sizeof($_POST['user']['geboorte_datum']) == 3 &&
-                isset($_POST['user']['adres']) && !empty($_POST['user']['adres'])
+				isset($_POST['user']['adres']) && sizeof($_POST['user']['adres']) == 4
             ) {
-                if ( $_FILES['pic']['size'] > 0 ) {
+				
+				$exAdres = [
+					'',
+					'',
+					'',
+					''
+				];
+	
+				$adres = $_POST['user']['adres'];
+				
+				for ($i=0; $i < 6; $i++) {
+					if (isset($adres[$i])) {
+						$exAdres[$i] = Base::Sanitize ($adres[$i]);
+					}
+				}
+				$jsonString = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$adres[0]+$adres[1],+$adres[2]+$adres[3]&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys");
+				$parsedArray = json_decode($jsonString,true);
+				
+				
+				$result = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
+				
+				if ( $_FILES['pic']['size'] > 0 ) {
                     $pic = Base::Upload_file( $_FILES['pic'] );
                 } else {
                     $pic = 'assets/img/user.png';
@@ -137,9 +158,9 @@
                     Base::Sanitize( $_POST['user']['achternaam'] ),
                     Base::Sanitize( $_POST['user']['geslacht'] ),
                     implode( '/', $_POST['user']['geboorte_datum'] ),
-                    Base::Sanitize( $_POST['user']['adres'] )
+					$result
                 );
-                
+
                 if ($user->save()) {
                     if ( !isset($_SESSION['user']) ) {
                         $_SESSION['user'] = [
