@@ -44,6 +44,8 @@
         }
 
         public static function view($var) {
+
+            echo$this->a; //todo
             $id = Base::Sanitize( $var[2] );
             $game = Game::Find($id);
             

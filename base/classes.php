@@ -62,7 +62,13 @@
         }
 
         public static function Error( $a = null, $b = null, $c = null, $d = null, $e = null, $f = null) {
-            if ( isset($a) && !isset($b) && !isset($c) && !isset($d) && !isset($e) && !isset($f) ) {
+            $error = error_get_last();
+
+            if ( $error["type"] == E_ERROR ) {
+                include('controllers/pages_controller.php');
+                pagesController::error(404);
+                echo'asd';
+            } elseif ( isset($a) && !isset($b) && !isset($c) && !isset($d) && !isset($e) && !isset($f) ) {
                 require_once('controllers/pages_controller.php');
                 pagesController::error($a->getcode(), $a);exit;
             } else { 
