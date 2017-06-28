@@ -88,7 +88,7 @@
                 'Striekwold',
                 'm',
                 '19/3/1999',
-                'Teugenaarsstraat 86, 5348JE Oss Nederland'
+                'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'
             );
             
             for ($i=1; $i < 20; $i++) {
@@ -105,7 +105,7 @@
                     'achternaam'.$i,
                     'm',
                     '27/6/1993',
-                    'spoorlaan 12, 9283LK Oss Nederland'
+                    'spoorlaan, 12, 9283LK, Oss, Nederland'
                 );
             }
 
