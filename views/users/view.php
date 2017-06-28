@@ -15,8 +15,9 @@
 				$interval = $datetime1->diff($datetime2);
 				echo $interval->format('%y');
 			?> y/o<br>
-			<label>Adres: </label><?=explode(',', $user->adres)[0] ?><br>
-			<label></label><?=explode(',', $user->adres)[1] ?><br>
+			<label>Adres: </label><?=explode(',', $user->adres)[0] ?><?=explode(',', $user->adres)[1] ?>, <?=explode(',', $user->adres)[2] ?>
+			<label></label><?=explode(',', $user->adres)[3] ?>, <?=explode(',', $user->adres)[4] ?>
+			
 			<hr>
 			<label>Registration date: </label>~20/05/2017<br>
 			<label>Aantal aankopen: </label><?= sizeof($orders) ?><br><br>

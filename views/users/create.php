@@ -3,6 +3,11 @@
 		<div class="col-md-4 col-md-offset-4 createpage">
 			<form action="" method="post" enctype="multipart/form-data">
 				<div class="login-form">
+					<?php if (isset($var[2]) && $var[2] == 'wrongadres') : ?>
+						<div class=" alert alert-warning">
+							<b>Warning!</b> U heeft uw adres niet correct ingevoerd
+						</div>
+					<?php endif; ?>
 					<input class="form-control" type="text" placeholder="Gebruikersnaam" name="user[name]" autofocus required>
 					<br>
 					<input class="form-control" type="password" placeholder="Wachtwoord" name="user[password]" required>
