@@ -82,7 +82,7 @@
         public static function view($var) {
             $id = Base::Sanitize( $var[2] );
             $user = User::Find($id);
-
+            
             if ($user !== false && isset($_SESSION['user']) && (($user->id == $_SESSION['user']['id'] && $user->password == $_SESSION['user']['password']) || ($_SESSION['user']['role'] == 777))) {
                 $orders = Order::FindByUser($id);
                 
@@ -130,7 +130,7 @@
 						$exAdres[$i] = Base::Sanitize ($adres[$i]);
 					}
 				}
-				$jsonString = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$adres[0]+$adres[1],+$adres[2]+$adres[3]&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys");
+				$jsonString = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$exAdres[0]+$exAdres[1],+$exAdres[2]+$exAdres[3]&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys");
 				$parsedArray = json_decode($jsonString,true);
 				
 				
@@ -229,15 +229,12 @@
 					
 					for ($i=0; $i < 6; $i++) {
 						if (isset($adres[$i])) {
-							$exAdres[$i] = Base::Sanitize ($adres[$i]);
+							$exAdres[$i] = str_replace(' ', '%20', Base::Sanitize($adres[$i]));
 						}
 					}
-					$jsonString = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$adres[0]+$adres[1],+$adres[2]+$adres[3]&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys");
+
+					$jsonString = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$exAdres[0]+$exAdres[1],+$exAdres[2]+$exAdres[3]&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys");
 					$parsedArray = json_decode($jsonString,true);
-					
-					$result = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
-					
-					$user->adres = $result;
 					
 					if (
 						!isset($parsedArray['results'][0]['address_components'][1]['long_name']) || 
@@ -246,8 +243,12 @@
 						!isset($parsedArray['results'][0]['address_components'][2]['long_name']) || 
 						!isset($parsedArray['results'][0]['address_components'][5]['long_name'])
 					) {
-						Base::Redirect($GLOBALS['config']['base_url'].'users/edit/'. $user->id .'/wrongadres');
+						Base::Redirect($GLOBALS['config']['base_url'].'users/edit/'. $user->id .'/warn/U heeft uw adres niet correct ingevoerd');exit;
 					}
+
+                    $result = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
+					
+					$user->adres = $result;
 					
                     if (!empty($_POST['user']['password'])) {
                         $user->password = Base::Hash_String($_POST['user']['password'], $user->salt);
@@ -255,6 +256,10 @@
 
                     if ($_FILES['pic']['size'] > 0) {
                         $user->pic = Base::Upload_file( $_FILES['pic'] );
+                    }
+                    
+                    if (!$user->pic) {
+                        Base::Redirect($GLOBALS['config']['base_url'].'users/edit/'. $user->id .'/warn/U heeft een verkeerde foto toegevoegd');exit;
                     }
 
                     if ($user->save()) {

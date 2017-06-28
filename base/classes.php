@@ -24,7 +24,7 @@
 
             $view = $view . '.php';
 
-            require_once('views/layout.php');
+            require_once(__dir__.'/../views/layout.php');
         }
 
         public static function Upload_file($file) {
@@ -40,7 +40,7 @@
                 $uploadOk = 0;
             }
             
-            if ($file["size"] > 500000) {
+            if ($file["size"] > 5000000) {
                 $uploadOk = 0;
             }
             
@@ -61,18 +61,19 @@
 
         }
 
-        public static function Error( $a = null, $b = null, $c = null, $d = null, $e = null, $f = null) {
+        public static function Error( $a = null, $b = null, $c = null, $d = null, $e = null, $f = null) { //todo
             $error = error_get_last();
-
+            
             if ( $error["type"] == E_ERROR ) {
+                // fatal error
                 $data = str_replace( '\\', '|', implode('*', $error) );
-                self::Redirect($GLOBALS['config']['base_url'].'pages/error/fatal/'.$data);exit;
+                self::error_view('fatal', $data);exit;
             } elseif ( isset($a) && !isset($b) && !isset($c) && !isset($d) && !isset($e) && !isset($f) ) {
-                require_once('controllers/pages_controller.php');
-                pagesController::error($a->getcode(), $a);exit;
+                // error
+                self::error_view($a->getcode(), $a);exit;
             } else { 
-                require_once('controllers/pages_controller.php');
-                pagesController::error($a, [
+                // exeption
+                self::error_view($a, [
                     $a,
                     $b,
                     $c,
@@ -81,6 +82,13 @@
                     $f
                 ]);exit;
             }
+        }
+
+        public static function error_view($type = null, $data = null) {
+            Base::Render('pages/error', [
+                'type' => $type,
+                'data' => $data
+            ]);
         }
 
         public static function Sanitize($string) {

@@ -1,9 +1,9 @@
 <div class="container-fluid error-page">
 	<div class="row">
 		<div class="col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1">
-            <?php switch ($type) : 
+            <?php switch ($type.'') : 
 
-                case 404: ?>
+                case '404': ?>
                     <h1 class="text-center">404</h1>
                     <h2 class="text-center">Page not found</h2>
                     <hr>
@@ -21,7 +21,7 @@
                     <br>
                 <?php break;
 
-                case 1049: ?>
+                case '1049': ?>
                     <h1 class="text-center"><?= $data->getcode() ?></h1>
                     <h4 class="text-center"><?= $data->getMessage() ?></h4>
                     <?php if ( $GLOBALS['config']['Debug'] ) : ?>

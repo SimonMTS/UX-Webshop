@@ -3,9 +3,9 @@
 		<div class="col-md-4 col-md-offset-4 createpage">
             <form action="" method="post" enctype="multipart/form-data">
 				<div class="login-form">
-					<?php if (isset($var[3]) && $var[3] == 'wrongadres') : ?>
+					<?php if (isset($var[4]) && !empty($var[3]) && isset($var[3]) && $var[3] == 'warn') : ?>
 						<div class=" alert alert-warning">
-							<b>Warning!</b> U heeft uw adres niet correct ingevoerd
+							<b>Warning!</b> <?=str_replace('%20', ' ', $var[4]) ?>
 						</div>
 					<?php endif; ?>
 					<input class="form-control" type="text" placeholder="Gebruikersnaam" name="user[name]" value="<?=$user->name ?>" required>
@@ -30,21 +30,21 @@
 					<div class="col-sm-4 form">
 						<select class="form-control birth" name="user[geboorte_datum][0]" required>
 							<?php for ($i=1; $i < 32; $i++) : ?>
-								<option value="<?=$i ?>"><?=$i ?></option>
+								<option <?php if (explode('/', $user->geboorte_datum)[0] == $i) : ?>selected<?php endif; ?> value="<?=$i ?>"><?=$i ?></option>
 							<?php endfor; ?>
 						</select>
 					</div>
 					<div class="col-sm-4 form">
 						<select class="form-control birth" name="user[geboorte_datum][1]" required>
 							<?php for ($i=1; $i < 13; $i++) : ?>
-								<option value="<?=$i ?>"><?=$i ?></option>
+								<option <?php if (explode('/', $user->geboorte_datum)[1] == $i) : ?>selected<?php endif; ?> value="<?=$i ?>"><?=$i ?></option>
 							<?php endfor; ?>
 						</select>
 					</div>
 					<div class="col-sm-4 form">
 						<select class="form-control birth" name="user[geboorte_datum][2]" required>
 							<?php for ($i=2017; $i > 1899; $i = $i - 1) : ?>
-								<option value="<?=$i ?>"><?=$i ?></option>
+								<option <?php if (explode('/', $user->geboorte_datum)[2] == $i) : ?>selected<?php endif; ?> value="<?=$i ?>"><?=$i ?></option>
 							<?php endfor; ?>
 						</select>
 					</div>
@@ -53,20 +53,20 @@
 					<br>	
 					<div class="form-group">
 						<div class="col-sm-8 form">
-							<input class="form-control" type="text" placeholder="Straatnaam" name="user[adres][0]" required>
+							<input class="form-control" type="text" placeholder="Straatnaam" name="user[adres][0]" value="<?=explode(', ', $user->adres)[0] ?>" required>
 						</div>
 						<div class="col-sm-4 form">
-							<input class="form-control" type="text" placeholder="Huisnummer" name="user[adres][1]" required>
+							<input class="form-control" type="text" placeholder="Huisnummer" name="user[adres][1]" value="<?=explode(', ', $user->adres)[1] ?>" required>
 						</div>
 					</div>
 					<br>
 					<br>
 					<div class="form-group">
 						<div class="col-sm-8 form">
-							<input class="form-control" type="text" placeholder="Plaats" name="user[adres][2]" required>
+							<input class="form-control" type="text" placeholder="Plaats" name="user[adres][2]" value="<?=explode(', ', $user->adres)[2] ?>" required>
 						</div>
 						<div class="col-sm-4 form">
-							<input class="form-control" type="text" placeholder="Postcode" name="user[adres][3]" required>
+							<input class="form-control" type="text" placeholder="Postcode" name="user[adres][3]" value="<?=explode(', ', $user->adres)[3] ?>" required>
 						</div>
 					</div>
 					<br>
