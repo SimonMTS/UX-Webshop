@@ -14,10 +14,7 @@
             if (isset($var[2])) {
                 $page = (int) Base::Sanitize( $var[2] );
                 if ($page < 1) {
-                    $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-                    $url = str_replace('0', '1', $url);
-
-                    Base::Redirect( $url );
+                    Base::Redirect( $GLOBALS['config']['base_url'].'games/overview/1' );
                 }
             } else {
                 $page = 1;
@@ -44,8 +41,6 @@
         }
 
         public static function view($var) {
-
-            echo$this->a; //todo
             $id = Base::Sanitize( $var[2] );
             $game = Game::Find($id);
             

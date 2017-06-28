@@ -2,10 +2,11 @@
     require_once('base/config.php');
     require_once('base/classes.php');
 
-    //set_error_handler('Base::Error');
-    //set_exception_handler('Base::Error');
-    //ini_set( "display_errors", "off" );
-    //error_reporting( E_ALL );
+    register_shutdown_function('Base::Error');
+    set_error_handler('Base::Error');
+    set_exception_handler('Base::Error');
+    ini_set( "display_errors", "off" );
+    error_reporting( E_ALL );
 
     session_start();
 

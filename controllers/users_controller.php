@@ -43,10 +43,7 @@
                 if (isset($var[2])) {
                     $page = (int) Base::Sanitize( $var[2] );
                     if ($page < 1) {
-                        $url = Base::Curl();
-                        $url = str_replace('0', '1', $url);
-
-                        Base::Redirect( $url );
+                        Base::Redirect( $GLOBALS['config']['base_url'].'users/overview/1' );
                     }
                 } else {
                     $page = 1;

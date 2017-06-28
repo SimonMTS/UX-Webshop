@@ -39,6 +39,24 @@
                     <br>
                 <?php break;
 
+                case 'fatal': ?>
+                    <h1 class="text-center">Exception</h1>
+                    <h4 class="text-center"><?= $type ?></h4>
+                    <?php if ( $GLOBALS['config']['Debug'] ) : ?>
+                        <br>
+                        <a href="#vard" class="gth btn btn-default" data-toggle="collapse">Data</a>
+                        <div id="vard" class="collapse">
+                            <pre>
+                                <?php var_dump(explode('*', str_replace(['%20', '%7C'], [' ', '/'], $data))); ?>
+                            </pre>
+                        </div>
+                    <?php endif; ?>
+                    <hr>
+                    <a class="btn btn-default btn-lg gth" href="<?= $GLOBALS['config']['base_url'] ?>">Go to home</a>
+                    <br>
+                    <br>
+                <?php break;
+
                 default: ?>
                     <h1 class="text-center">Exception</h1>
                     <h4 class="text-center"><?= $type ?></h4>
