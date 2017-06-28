@@ -51,6 +51,7 @@
                     $rat = (int) Base::Sanitize($_POST['game']['rating']);
                     if ($rat <= 5 && $rat >= 1) {
                         Game::addRating( $id, $rat );
+                        Base::Redirect( Base::Curl() );
                     }
                 }
 
