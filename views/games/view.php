@@ -13,7 +13,15 @@
                     <a class="btn btn-default btn-lg" href="<?= $GLOBALS['config']['base_url'] ?>payment/setup/<?=$game->id ?>">Buy</a>
                     <br>
                     <br>
+                    <form action="" method="post" name="rating">
+                        <input class="form-control" type="hidden" placeholder="Rating" name="game[rating]" required>
+                    </form>
                 </div>
+                <span class="stars">
+                    <?php for ($i=0;$i<5;$i++) : ?>
+                        <i class="fa fa-star star<?=$i ?> <?php if ($i < round($rating)) : ?>active<?php endif; ?>" aria-hidden="true"></i>
+                    <?php endfor; ?>
+                </span>
             </div>
         </div>
     </div>

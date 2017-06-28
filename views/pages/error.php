@@ -46,9 +46,10 @@
                         <br>
                         <a href="#vard" class="gth btn btn-default" data-toggle="collapse">Data</a>
                         <div id="vard" class="collapse">
-                            <pre>
-                                <?php var_dump(explode('*', str_replace(['%20', '%7C'], [' ', '/'], $data))); ?>
-                            </pre>
+                            <?php $data = explode('*', str_replace(['%20', '%7C'], [' ', '/'], $data)); ?>
+                            <?php echo $data[1] ?><br>
+                            <?php echo $data[2] ?><br>
+                            line: <?php echo $data[3] ?>
                         </div>
                     <?php endif; ?>
                     <hr>

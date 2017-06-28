@@ -65,8 +65,7 @@
             $error = error_get_last();
 
             if ( $error["type"] == E_ERROR ) {
-                // $data = str_replace( '/', '%slash%', implode('*', $error) );
-                $data = str_replace( '/', '|', '1*Using%20$this%20when%20not%20in%20object%20context*C:/xampp/htdocs/UX-Webshop/controllers/games_controller.php*48' );
+                $data = str_replace( '\\', '|', implode('*', $error) );
                 self::Redirect($GLOBALS['config']['base_url'].'pages/error/fatal/'.$data);exit;
             } elseif ( isset($a) && !isset($b) && !isset($c) && !isset($d) && !isset($e) && !isset($f) ) {
                 require_once('controllers/pages_controller.php');

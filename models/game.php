@@ -7,13 +7,15 @@
         public $descr;
         public $cover;
 
-        public function __construct($id, $name, $price, $descr, $cover, $views = 0) {
+        public function __construct($id, $name, $price, $descr, $cover, $views = 0, $rating = 0, $votes = 0) {
             $this->id = $id;
             $this->name = $name;
             $this->price = $price;
             $this->descr = $descr;
             $this->cover = $cover;
             $this->views = $views;
+            $this->rating = $rating;
+            $this->votes = $votes;
         }
 		
 		public static function searchByName($text, $limit, $offset) {
@@ -33,7 +35,9 @@
                 isset($result[0]['price']) &&
                 isset($result[0]['descr']) &&
                 isset($result[0]['cover']) &&
-                isset($result[0]['views'])
+                isset($result[0]['views']) &&
+                isset($result[0]['rating']) &&
+                isset($result[0]['votes'])
             ) {
                 return new Game(
                     $result[0]['id'],
@@ -41,7 +45,9 @@
                     $result[0]['price'],
                     $result[0]['descr'],
                     $result[0]['cover'],
-                    $result[0]['views']
+                    $result[0]['views'],
+                    $result[0]['rating'],
+                    $result[0]['votes']
                 );
             } else {
                 return false;
@@ -62,7 +68,9 @@
                 isset($result[0]['price']) &&
                 isset($result[0]['descr']) &&
                 isset($result[0]['cover']) &&
-                isset($result[0]['views'])
+                isset($result[0]['views']) &&
+                isset($result[0]['rating']) &&
+                isset($result[0]['votes'])
             ) {
                 return new Game(
                     $result[0]['id'],
@@ -70,7 +78,9 @@
                     $result[0]['price'],
                     $result[0]['descr'],
                     $result[0]['cover'],
-                    $result[0]['views']
+                    $result[0]['views'],
+                    $result[0]['rating'],
+                    $result[0]['votes']
                 );
             } else {
                 return $result;
@@ -90,6 +100,20 @@
             }
         }
 
+        public static function addRating( $id, $rating ) {
+            $game = self::find($id);
+            if ( $game ) {
+                Sql::Update('game', 'id', $id, [
+                    'votes' => ($game->votes + 1),
+                    'rating' => ((($game->rating * $game->votes) + $rating) / ($game->votes + 1))
+                ]);
+
+                return ($game->votes);
+            } else {
+                return false;
+            }
+        }
+
         public function save() {
             if ( !self::find($this->id) ) {
                 Sql::Save('game', [
@@ -98,7 +122,9 @@
                     'price' => $this->price,
                     'descr' => $this->descr,
                     'cover' => $this->cover,
-                    'views' => $this->views
+                    'views' => $this->views,
+                    'rating' => $this->rating,
+                    'votes' => $this->votes
                 ]);
 
                 return true;
@@ -109,7 +135,9 @@
                     'price' => $this->price,
                     'descr' => $this->descr,
                     'cover' => $this->cover,
-                    'views' => $this->views
+                    'views' => $this->views,
+                    'rating' => $this->rating,
+                    'votes' => $this->votes
                 ]);
 
                 return true;

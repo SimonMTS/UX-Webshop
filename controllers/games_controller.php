@@ -47,9 +47,17 @@
             if ( $game ) {
                 $views = Game::addView($id);
 
+                if ( isset($_POST['game']) && isset($_POST['game']['rating']) ) {
+                    $rat = (int) Base::Sanitize($_POST['game']['rating']);
+                    if ($rat <= 5 && $rat >= 1) {
+                        Game::addRating( $id, $rat );
+                    }
+                }
+
                 Base::Render('games/view', [
                     'game' => $game,
-                    'views' => $views
+                    'views' => $views,
+                    'rating' => $game->rating
                 ]);
             } else {
                 Base::Render('pages/error', [
