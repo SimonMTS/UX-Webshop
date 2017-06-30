@@ -60,7 +60,8 @@
                     $payment->status,
                     $payment->paidDatetime,
                     $details_consumerName,
-                    $details_consumerAccount
+                    $details_consumerAccount,
+                    $_SESSION['user']['id']
                 );
 
                 //stuur game//

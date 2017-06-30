@@ -1,6 +1,7 @@
 <?php
     require_once "models/user.php";
     require_once "models/game.php";
+    require_once "models/order.php";
 
     class setupController {
 
@@ -19,7 +20,8 @@
             self::setupdb();
             self::addusers();
             self::addgames();
-            // self::addorders();
+            self::addorders();
+            self::addviews();
 
             echo 'Admin login is:<br> -Name: beheerder<br> -Password: beheerder<br><br>';
 
@@ -128,16 +130,51 @@
         }
 
         private static function addorders() {
-            for ($i = 1; $i < 21; $i++ ) {
-                $games[] = [
-                    'name' => "Test Game $i",
-                    'price' => 60,
-                    'descr' => "Lorem ipsum dolor sit amet, ea viderer postulant vel, eam nominavi insolens ea, no per denique conceptam. In homero torquatos conclusionemque mea, vix ornatus nominavi appellantur eu, ea nec pertinacia interesset.",
-                    'cover' => 'assets/noPicture.png',
-                    'views' => 0,
-                    'rating' => 0,
-                    'votes' => 0
-                ];
+            $game = Game::findByName('Red Dead Redemtion 2');
+            $user = User::findByName('beheerder');
+
+            for ($i = 1; $i < 14; $i++ ) {
+                $orders[] = new order (
+                    Base::Genetate_id(),
+                    $game->name,
+                    $game->id,
+                    $game->price,
+                    'ideal',
+                    'paid',
+                    '2017-06-30T14:37:14.0Z',
+                    'T. TEST',
+                    'NL17RABO0213698412',
+                    $user->id
+                );
+            }
+
+            foreach ($orders as $order) {
+                if ( !$order->save() ) {
+                    echo'error<br><br>';
+                }
+            }
+        }
+
+        private static function addviews() {
+            $games = Game::all();
+            if ($_SESSION['user']['id']) {
+                $user_id = $_SESSION['user']['id'];
+            } else {
+                $user_id = 'unknown';
+            }
+
+            foreach ($games as $game) {
+                for ($iter=0;$iter<7;$iter++) {
+                    $count = mt_rand(0, 20);
+                    // echo 'game: '.$game['name'].', views: '.$count.', days: '.$iter.'. <br>';
+                    for ($i = 1; $i < $count; $i++ ) {
+                        Sql::Save('game_view', [
+                            'game_id' => $game['id'],
+                            'user_id' => $user_id,
+                            'time' => date("Y-m-d H:i:s", strtotime("-$iter days"))
+                        ]);
+                    }
+                }
             }
         }
 

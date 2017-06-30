@@ -106,8 +106,8 @@
             }
         }
 
-        public static function getViews() {
-            return Sql::GetSorted('game_view', 'time', false);
+        public static function getViews($id) {
+            return Sql::Get('game_view', 'game_id', $id);
         }
 
         public static function addRating( $id, $rating ) {

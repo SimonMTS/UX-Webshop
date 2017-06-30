@@ -7,8 +7,8 @@
             $game = Game::Find($id);
             $views = Game::getViews($id);
             $max = 0;
-
-            if ( !$GLOBALS['config']['Debug'] ) {
+            
+            if ( $game ) {
                 $view_dates = [
                     date("Y-m-d", strtotime("-6 days")) => 0,
                     date("Y-m-d", strtotime("-5 days")) => 0,
@@ -32,22 +32,19 @@
                     $view_dates[$key] = abs((($value/$max) * 350) - 350);
                 }    
             } else {
-                $view_dates = [
-                    date("Y-m-d", strtotime("-6 days")) => mt_rand(10, 340),
-                    date("Y-m-d", strtotime("-5 days")) => mt_rand(10, 340),
-                    date("Y-m-d", strtotime("-4 days")) => mt_rand(10, 340),
-                    date("Y-m-d", strtotime("-3 days")) => mt_rand(10, 340),
-                    date("Y-m-d", strtotime("-2 days")) => mt_rand(10, 340),
-                    date("Y-m-d", strtotime("-1 days")) => mt_rand(10, 340),
-                    date("Y-m-d") => mt_rand(10, 340),
-                ];
-                $max = 350;
+                Base::Render('pages/error', [
+                    'type' => 'custom',
+                    'data' => [
+                        0 => 'Error',
+                        1 => 'Game not found'
+                    ]
+                ]);
             }
             
-
             Base::Render('admin/info', [
                 'views' => $view_dates,
-                'max' => $max
+                'max' => $max,
+                'game' => $game
             ]);
         }
     }

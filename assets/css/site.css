@@ -186,9 +186,9 @@ div.error-page a.gth {
     transform: translateX(-50%);
 }
 
-div.user-profile {
-    /*background-color: beige;*/
-}
+/*div.user-profile {
+    background-color: beige;
+}*/
 
 div.user-profile div.profile-picture {
     height: 200px;

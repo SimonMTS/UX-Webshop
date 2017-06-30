@@ -11,7 +11,7 @@
         public $details_consumerName;
         public $details_consumerAccount;
 
-        public function __construct($id, $game_name, $game_id, $amount, $method, $status, $paidDatetime, $details_consumerName, $details_consumerAccount) {
+        public function __construct($id, $game_name, $game_id, $amount, $method, $status, $paidDatetime, $details_consumerName, $details_consumerAccount, $user_id) {
             $this->id = $id;
             $this->game_name = $game_name;
             $this->game_id = $game_id;
@@ -21,6 +21,7 @@
             $this->paidDatetime = $paidDatetime;
             $this->details_consumerName = $details_consumerName;
             $this->details_consumerAccount = $details_consumerAccount;
+            $this->user_id = $user_id;
         }
 		
         public static function all() {
@@ -68,7 +69,7 @@
                 
                 Sql::Save('game_order', [
                     'id' => $this->id,
-                    'user_id' => $_SESSION['user']['id'],
+                    'user_id' => $this->user_id,
                     'game_name' => $this->game_name,
                     'game_id' => $this->game_id,
                     'amount' => $this->amount,
@@ -83,7 +84,7 @@
             } else {
                 Sql::Update('game_order', 'id', $this->id, [
                     'id' => $this->id,
-                    'user_id' => $_SESSION['user']['id'],
+                    'user_id' => $this->user_id,
                     'game_name' => $this->game_name,
                     'game_id' => $this->game_id,
                     'amount' => $this->amount,
