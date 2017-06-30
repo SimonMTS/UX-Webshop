@@ -142,15 +142,13 @@ div.user-profile a {
 
 div.order-list {
     padding: 30px 10px 0 10px;
-    height: calc(100vh - 53px);
+    height: auto;
 }
 
 div.order-list div {
-    background-color: #f1f1f1;
     height: 100%;
     width: 100%;
-    border-top-left-radius: 5px;
-    overflow-y: scroll;
+    border-top-left-radius: 5px; 
 }
 
 div.order-list div span.no-p {
@@ -163,7 +161,6 @@ div.order-list div span.no-p {
 
 div.order-list div div {
     width: calc(100% - 30px);
-    max-width: 500px;
     border-radius: 5px;
     margin: 15px auto;
     height: 100px;
