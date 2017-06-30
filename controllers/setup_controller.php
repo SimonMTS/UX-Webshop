@@ -7,6 +7,7 @@
 
         public static function init($var) {
             $pw = 'pw';
+            $start_time = new DateTime();
 
             if ( !(isset($var[2]) && $var[2] == $pw) && !(isset($var[2]) && $var[2] == $pw.'confirmed') ) {
                 echo'error: wrong password<br><br>';exit;
@@ -24,6 +25,8 @@
             self::addviews();
 
             echo 'Admin login is:<br> -Name: beheerder<br> -Password: beheerder<br><br>';
+            $end_time = new DateTime();
+            echo 'operation took ' . $start_time->diff($end_time)->i . 'min ' . $start_time->diff($end_time)->s . ' sec. <br><br>';
 
             echo '<a href="' . $GLOBALS['config']['base_url'] . '">home</a>';
         }

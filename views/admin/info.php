@@ -5,7 +5,7 @@
         </div>
         <div class="col-lg-8 hidden-sm hidden-xs">
             <div class="graf">
-                <span><h1>Views </h1><?php if ( $GLOBALS['config']['Debug'] ) : ?><h4> Test data</h4><?php endif; ?></span>
+                <span><h1>Views </h1></span>
                 <svg class="graph">
                     <g class="grid x-grid" id="xGrid">
                         <line x1="40" x2="40" y1="10" y2="380"></line>
