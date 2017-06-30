@@ -37,6 +37,9 @@
 						<?php if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) : ?>
 							<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/overview">Gebruikers</a></li>
 						<?php endif; ?>
+						<?php if ($GLOBALS['config']['Debug']) : ?>
+							<li><a class="debug">Debug Mode</a></li>
+						<?php endif; ?>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<?php if (!isset($_SESSION['user']['id'])) : ?>
