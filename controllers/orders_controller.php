@@ -20,4 +20,16 @@
                 ]);
             }
         }
+
+        public static function overview($var) {
+            if (isset($var[2]) ) {
+                $search = Base::Sanitize( $var[2] ); 
+                $orders = Order::searchByUser($search, 5, 0);
+            } else {
+                $orders = Order::searchByUser('', 5, 0);
+            }
+            Base::Render('orders/overview', [
+                'orders' => $orders
+            ]);
+        }
     }

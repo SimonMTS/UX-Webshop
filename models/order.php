@@ -97,4 +97,7 @@
                 return true;
             }
         }
+        public static function searchByUser($text, $limit, $offset) {
+			return Sql::Search('game_order', 'game_name', $text, $limit, $offset);
+		}
     }
