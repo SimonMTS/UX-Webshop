@@ -19,6 +19,7 @@
             self::setupdb();
             self::addusers();
             self::addgames();
+            // self::addorders();
 
             echo 'Admin login is:<br> -Name: beheerder<br> -Password: beheerder<br><br>';
 
@@ -116,6 +117,20 @@
             }
 
             echo'done adding users<br><br>';
+        }
+
+        private static function addorders() {
+            for ($i = 1; $i < 21; $i++ ) {
+                $games[] = [
+                    'name' => "Test Game $i",
+                    'price' => 60,
+                    'descr' => "Lorem ipsum dolor sit amet, ea viderer postulant vel, eam nominavi insolens ea, no per denique conceptam. In homero torquatos conclusionemque mea, vix ornatus nominavi appellantur eu, ea nec pertinacia interesset.",
+                    'cover' => 'assets/noPicture.png',
+                    'views' => 0,
+                    'rating' => 0,
+                    'votes' => 0
+                ];
+            }
         }
 
         private static function addgames() {

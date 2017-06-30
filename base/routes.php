@@ -15,12 +15,10 @@
         }
         else
         {
-            require_once('controllers/pages_controller.php');
-            pagesController::error(404);
+            Base::error_view(404);
         }
     }
     else
     {
-        require_once('controllers/pages_controller.php');
-        pagesController::error(404);
+        Base::error_view(404);
     }
