@@ -139,15 +139,27 @@
         public static function GetSorted($table, $row, $limit = 4) {
             $db = self::getInstance();
 
-            try {
-                $req = $db->prepare("SELECT * FROM $table ORDER BY $row DESC LIMIT $limit");
-                $req->execute();
-                $res = $req->fetchall();
-            } catch( PDOException $Exception ) {
-                return $Exception->getMessage();
+            if ($limit) {
+                try {
+                    $req = $db->prepare("SELECT * FROM $table ORDER BY $row DESC LIMIT $limit");
+                    $req->execute();
+                    $res = $req->fetchall();
+                } catch( PDOException $Exception ) {
+                    return $Exception->getMessage();
+                }
+                
+                return $res;
+            } else {
+                try {
+                    $req = $db->prepare("SELECT * FROM $table ORDER BY $row DESC");
+                    $req->execute();
+                    $res = $req->fetchall();
+                } catch( PDOException $Exception ) {
+                    return $Exception->getMessage();
+                }
+                
+                return $res;
             }
-            
-            return $res;
         }
 
         // Sql::Search('user', 'name', 'beheerder1');

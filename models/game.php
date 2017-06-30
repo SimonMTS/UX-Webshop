@@ -87,17 +87,27 @@
             }
         }
 
-        public static function addView( $id ) {
+        public static function addView( $id, $user_id ) {
             $game = self::find($id);
             if ( $game ) {
                 Sql::Update('game', 'id', $id, [
                     'views' => ($game->views + 1)
                 ]);
 
+                Sql::Save('game_view', [
+                    'game_id' => $game->id,
+                    'user_id' => $user_id,
+                    'time' => date("Y-m-d H:i:s")
+                ]);
+
                 return ($game->views + 1);
             } else {
                 return false;
             }
+        }
+
+        public static function getViews() {
+            return Sql::GetSorted('game_view', 'time', false);
         }
 
         public static function addRating( $id, $rating ) {

@@ -7,7 +7,7 @@
         ],
 
         'Debug' => true,
-        'custom_errors' => true,
+        'custom_errors' => false,
 
         'Default_Title' => 'UXXX',
 

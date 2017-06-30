@@ -42,6 +42,13 @@
                 'votes' => 'int(20)'
             ]);
             Sql::AddPKey('game', 'id');
+
+            Sql::CreateTable('game_view', [
+                'game_id' => 'varchar(256)',
+                'user_id' => 'varchar(256)',
+                'time' => 'varchar(256)'
+            ]);
+            // Sql::AddPKey('game_view', 'game_id');
             
             Sql::CreateTable('game_order', [
                 'id' => 'varchar(256)',
@@ -68,7 +75,8 @@
                 'achternaam' => 'varchar(256)',
                 'geslacht' => 'varchar(3)',
                 'geboorte_datum' => 'varchar(256)',
-                'adres' => 'varchar(256)'
+                'adres' => 'varchar(256)',
+                'rated' => 'varchar(512)'
             ]);
             Sql::AddPKey('user', 'id');
 

@@ -45,7 +45,13 @@
             $game = Game::Find($id);
             
             if ( $game ) {
-                $views = Game::addView($id);
+                if ($_SESSION['user']['id']) {
+                    $user_id = $_SESSION['user']['id'];
+                } else {
+                    $user_id = 'unknown';
+                }
+
+                $views = Game::addView($id, $user_id);
 
                 if ( isset($_POST['game']) && isset($_POST['game']['rating']) && isset($_SESSION['user']) ) {
                     $rat = (int) Base::Sanitize($_POST['game']['rating']);
