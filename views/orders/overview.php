@@ -13,8 +13,8 @@
     </div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12 order-list <?php if (sizeof($orders) == 0) : ?>hidden-sm hidden-xs<?php endif; ?>">
-				<div style="display: none;" class="">
+			<div class="col-md-12 order-overview">
+				<div>
 					<?php if (sizeof($orders) == 0) : ?>
 						<span class="no-p">Nog geen aankopen</span>
 					<?php endif; ?>

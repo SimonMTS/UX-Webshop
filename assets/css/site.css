@@ -209,13 +209,15 @@ div.user-profile a {
 
 div.order-list {
     padding: 30px 10px 0 10px;
-    height: auto;
+    height: calc(100vh - 53px);
 }
 
 div.order-list div {
+    background-color: #f1f1f1;
     height: 100%;
     width: 100%;
-    border-top-left-radius: 5px; 
+    border-top-left-radius: 5px;
+    overflow-y: scroll;
 }
 
 div.order-list div span.no-p {
@@ -233,6 +235,7 @@ div.order-list div div {
     height: 100px;
     overflow: hidden;
     background-color: #d5d5d5;
+    max-width: 500px;
 }
 
 div.order-list div div a {
@@ -285,6 +288,87 @@ div.order-list div div a span.paid {
     background-color: #DFF2BF;
     border-radius: 5px;
 }
+
+
+div.order-overview {
+    padding: 30px 10px 0 10px;
+    height: auto;
+}
+
+div.order-overview div {
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 5px;
+}
+
+div.order-overview div span.no-p {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 4vw;
+    margin-top: 200px;
+}
+
+div.order-overview div div {
+    width: calc(100% - 30px);
+    border-radius: 5px;
+    margin: 15px auto;
+    height: 100px;
+    overflow: hidden;
+    background-color: #d5d5d5;
+}
+
+div.order-overview div div a {
+    height: 100%;
+    width: 50%;
+    display: block;
+    float: left;
+}
+
+div.order-overview div div a span {
+    display: inline-block;
+    color: #4e4e4e;
+    height: 30px;
+    font-size: 15px;
+    padding: 5px;
+    margin: 9px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div.order-overview div div a.left:hover {
+    background: #d5d5d5;
+    background: -webkit-linear-gradient(left, #bebebe, #d5d5d5);
+    background: -moz-linear-gradient(left, #bebebe, #d5d5d5);
+    background: -o-linear-gradient(left, #bebebe, #d5d5d5);
+    background: linear-gradient(to right, #bebebe, #d5d5d5);
+}
+
+div.order-overview div div a.right:hover {
+    background: #d5d5d5;
+    background: -webkit-linear-gradient(left, #d5d5d5, #bebebe);
+    background: -moz-linear-gradient(left, #d5d5d5, #bebebe);
+    background: -o-linear-gradient(left, #d5d5d5, #bebebe);
+    background: linear-gradient(to right, #d5d5d5, #bebebe);
+}
+
+div.order-overview div div a span.full-w {
+    width: 100%;
+    text-align: right;
+}
+
+div.order-overview div div a span.full-w-left {
+    width: 100%;
+}
+
+div.order-overview div div a span.paid {
+    padding: 5px 10px;
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    border-radius: 5px;
+}
+
 
 div.overview-item {
     display: inline-block;
