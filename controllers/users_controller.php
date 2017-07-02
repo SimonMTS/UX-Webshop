@@ -133,10 +133,7 @@
 				$jsonString = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$exAdres[0]+$exAdres[1],+$exAdres[2]+$exAdres[3]&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys");
 				$parsedArray = json_decode($jsonString,true);
 				
-				
-				$result = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
-				
-				if (
+                if (
 					!isset($parsedArray['results'][0]['address_components'][1]['long_name']) || 
 					!isset($parsedArray['results'][0]['address_components'][0]['long_name']) || 
 					!isset($parsedArray['results'][0]['address_components'][6]['long_name']) || 
@@ -146,8 +143,19 @@
 					Base::Redirect($GLOBALS['config']['base_url'].'users/create/wrongadres');
 				}
 				
-				if ( $_FILES['pic']['size'] > 0 ) {//Todo
+				$result = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
+				
+				if ( $_FILES['pic']['size'] > 0 ) {
                     $pic = Base::Upload_file( $_FILES['pic'] );
+                    if (!$pic) {
+                        Base::Render('pages/error', [
+                        'type' => 'custom',
+                        'data' => [
+                            0 => 'Error',
+                            1 => 'Could not save image'
+                        ]
+                    ]);
+                    }
                 } else {
                     $pic = 'assets/img/user.png';
                 }
