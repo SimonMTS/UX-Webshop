@@ -1,14 +1,14 @@
 <?php
     require_once "models/game.php";
 
-    class pagesController {
+    class pagesController extends Controller {
 
         public static function home() {
-
             $games = Game::findPopular(4);
 
+            self::$title = 'Home';
+
             Base::Render('pages/home', [
-                'page_title' => 'Home',
                 'games' => $games
             ]);
         }

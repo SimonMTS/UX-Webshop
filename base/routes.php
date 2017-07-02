@@ -11,6 +11,7 @@
 
         if ( in_array( $action, $actions ) )
         {
+            $controller::beforeAction();
             $controller::{$action}($var);
         }
         else

@@ -1,7 +1,7 @@
 <?php
     require_once "models/game.php";
 
-    class gamesController {
+    class gamesController extends Controller {
 
         public static function overview($var) {
 

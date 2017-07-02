@@ -13,18 +13,14 @@
             }
         }
 
-        public static function Render( $view, $Cvar = null ) {
-            if ( !isset($Cvar['page_title']) ) {
-                $Cvar['page_title'] = $GLOBALS['config']['Default_Title'];
-            }
-            
+        public static function Render( $view, $Cvar = [] ) {
             foreach ($Cvar as $key => $value) {
                 ${$key} = $value;
             }
 
             $view = $view . '.php';
 
-            require_once(__dir__.'/../views/layout.php');
+            require_once(__dir__.'/../views/layout/' . Controller::$layout . '.php');
         }
 
         public static function Upload_file($file) {
@@ -105,6 +101,15 @@
 
         public static function Hash_String($string, $salt) {
             return hash('sha512', $string . $salt);
+        }
+    }
+
+    class Controller {
+        public static $layout = 'main';
+        public static $title;
+
+        public static function beforeAction() {
+            self::$title = $GLOBALS['config']['Default_Title'];
         }
     }
 

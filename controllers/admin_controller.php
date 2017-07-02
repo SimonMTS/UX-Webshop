@@ -1,7 +1,19 @@
 <?php
     require_once "models/game.php";
+    require_once "models/user.php";
 
-    class adminController {
+    class adminController extends Controller {
+
+        public static function overview() {
+            $games = Game::searchByName('', 11, 0);
+            $users = User::searchByName('', 11, 0);
+
+            Base::Render('admin/overview', [
+                'games' => $games,
+                'users' => $users
+            ]);
+        }
+
         public static function info($var) {
             $id = Base::Sanitize( $var[2] );
             $game = Game::Find($id);

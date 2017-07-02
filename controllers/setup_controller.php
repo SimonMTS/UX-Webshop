@@ -3,7 +3,11 @@
     require_once "models/game.php";
     require_once "models/order.php";
 
-    class setupController {
+    class setupController extends Controller {
+
+        public static function beforeAction() {
+            self::$layout = 'empty';
+        }
 
         public static function init($var) {
             $pw = 'pw';

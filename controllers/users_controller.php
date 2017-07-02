@@ -2,8 +2,8 @@
     require_once "models/user.php";
     require_once "models/order.php";
 
-    class usersController {
-
+    class usersController extends Controller {
+        
         public static function login() {
             if (isset($_POST['user'])) {
                 $user = User::findByName($_POST['user']['name']);

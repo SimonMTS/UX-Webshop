@@ -16,7 +16,7 @@
 
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title><?=$page_title ?></title>
+		<title><?=Controller::$title ?></title>
 	</head>
 	<body>
 		<nav class="navbar navbar-default">
@@ -54,7 +54,7 @@
 			</div>
 		</nav>
 
-		<?php require_once($view); ?>
+		<?php require_once(__dir__.'/../'.$view); ?>
 
 	</body>
 <html>

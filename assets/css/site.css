@@ -539,3 +539,39 @@ div.order-view div.row div.col-sm-offset-3 {
     border-radius: 5px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
+
+.admin-item {
+    padding: 15px;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-top: 1px solid lightgray;
+}
+
+.admin-item h2 {
+    margin: 0px;
+}
+
+.admin-item:nth-child(2) {
+    border-top: none;
+}
+
+.admin-item:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+
+.admin-item:first-child {
+    margin-top: 15px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.admin-item:last-child {
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    text-align: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

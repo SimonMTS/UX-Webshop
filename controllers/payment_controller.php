@@ -3,7 +3,7 @@
     require_once "models/game.php";
     require_once "models/order.php";
 
-    class paymentController {
+    class paymentController extends Controller {
 
         public static function setup($var) {
             if (!isset($_SESSION['user']['role'])) {
