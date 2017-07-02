@@ -40,7 +40,8 @@
                 isset($result[0]['status']) &&
                 isset($result[0]['paidDatetime']) &&
                 isset($result[0]['details_consumerName']) &&
-                isset($result[0]['details_consumerAccount'])
+                isset($result[0]['details_consumerAccount']) &&
+                isset($result[0]['user_id'])
             ) {
                 return new Order(
                     $result[0]['id'],
@@ -51,7 +52,8 @@
                     $result[0]['status'],
                     $result[0]['paidDatetime'],
                     $result[0]['details_consumerName'],
-                    $result[0]['details_consumerAccount']
+                    $result[0]['details_consumerAccount'],
+                    $result[0]['user_id']
                 );
             } else {
                 return false;

@@ -14,7 +14,7 @@
             }
 
             if ($var[2] == $pw) {
-                echo 'Are you sure you want to create/reset the database? <br><br> <a href="'.$GLOBALS['config']['base_url'].'setup/init/'.$pw.'confirmed">Yes</a>';
+                echo 'Are you sure you want to create/reset the database? <br><br> als dit niet werkt moet de max_execution_time omhoog in php.ini <br><br> <a href="'.$GLOBALS['config']['base_url'].'setup/init/'.$pw.'confirmed">Yes</a>';
                 exit;
             }
 

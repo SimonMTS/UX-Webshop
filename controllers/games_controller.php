@@ -45,7 +45,7 @@
             $game = Game::Find($id);
             
             if ( $game ) {
-                if ($_SESSION['user']['id']) {
+                if (isset($_SESSION['user']['id'])) {
                     $user_id = $_SESSION['user']['id'];
                 } else {
                     $user_id = 'unknown';
