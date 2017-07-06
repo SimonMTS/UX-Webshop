@@ -36,7 +36,8 @@
             Base::Render('games/overview', [
                 'games' => $games,
                 'page' => $page,
-                'searchpar' => $searchpar
+                'searchpar' => $searchpar,
+                'var' => $var
             ]);
         }
 

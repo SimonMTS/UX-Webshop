@@ -6,7 +6,7 @@
             'action' => 'home'
         ],
 
-        'Debug' => true,
+        'Debug' => false,
         'custom_errors' => true,
 
         'Default_Title' => 'UXXX',

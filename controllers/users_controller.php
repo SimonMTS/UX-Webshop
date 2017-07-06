@@ -101,7 +101,7 @@
             }
         }
 
-        public static function create($var) {			
+        public static function create($var) {
             if (
                 isset($_POST['user']) &&
                 isset($_POST['user']['name']) && !empty($_POST['user']['name']) &&
