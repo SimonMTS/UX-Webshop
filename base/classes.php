@@ -181,6 +181,190 @@
         }
     }
 
+    class Model {
+
+        public function load($input) {
+            if ($input == 'post' && isset( $_POST[get_class($this)] )) {
+                $input = array_merge( $_POST[get_class($this)], $_FILES );
+
+                foreach ( $this->attributes() as $attribute => $value ) {
+                    if ( isset( $input[$attribute] ) && !empty( $input[$attribute] ) ) {
+                        $this->{$attribute} = $input[$attribute];
+                    } else {
+                        if ( !isset( $this->{$attribute} ) || empty( $this->{$attribute} )) {
+                            return false;
+                        }
+                    }
+                }
+                
+                return true;
+            } elseif ( is_array( $input ) ) {
+                foreach ($input as $prop => $value) {
+                    if ( is_string($prop) ) {
+                        $this->{$prop} = $value;
+                    }
+                }
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function validate() {
+            foreach ( $this->rules() as $rule ) {
+                switch ( $rule[1] ) {
+
+                    case 'required':
+                        foreach ($rule[0] as $prop) {
+                            if ( !isset( $this->{$prop} ) || empty( $this->{$prop} ) ) {
+                                return false;
+                            }
+                        }
+                    break;
+
+                    case 'unique':
+                        foreach ($rule[0] as $prop) {
+                            $user = user::findByName( $this->{$prop} );
+                            if ( $user && $user->id != $this->id ) {
+                                return false;
+                            }
+                        }
+                    break;
+
+                    case 'password':
+                        if ( $this->{$rule[0][0]} != $this->{$rule[0][1]} ) {
+                            return false;
+                        }
+                    break;
+
+                    case 'in': 
+                        foreach ($rule[0] as $prop) {
+                            if ( !in_array( $this->{$prop}, $rule[2] ) ) {
+                                return false;
+                            }
+                        }
+                    break;
+
+                    case 'string': 
+                        foreach ($rule[0] as $prop) {
+                            if ( !is_string( $this->{$prop} ) ) {
+                                return false;
+                            } else {
+                                $this->{$prop} = strval( $this->{$prop} );
+                            }
+                        }
+                    break;
+
+                    case 'integer': 
+                        foreach ($rule[0] as $prop) {
+                            if ( !is_int( $this->{$prop} ) ) {
+                                return false;
+                            } else {
+                                $this->{$prop} = intval( $this->{$prop} );
+                            }
+                        }
+                    break;
+
+                    case 'double': 
+                        foreach ($rule[0] as $prop) {
+                            if ( !is_double( $this->{$prop} ) ) {
+                                return false;
+                            } else {
+                                $this->{$prop} = floatval( $this->{$prop} );
+                            }
+                        }
+                    break;
+
+                    case 'image': 
+                        foreach ($rule[0] as $prop) {
+                            
+                            if ( $this->{$prop}['size'] > 0 ) {
+                                $this->{$prop} = Base::Upload_file( $_FILES['pic'], $rule[2] );
+                                
+                                if ( !$this->{$prop} ) {
+                                    return false;
+                                }
+                            } else {
+                                $this->{$prop} = $GLOBALS['config']['Default_Profile_Pic'];
+                            }
+
+                        }
+                    break;
+
+                    case 'adres': 
+                        foreach ($rule[0] as $prop) {
+                            
+                            if ( sizeof( $this->{$prop} ) == 4 ) {
+                                $exAdres = [
+                                    '',
+                                    '',
+                                    '',
+                                    ''
+                                ];
+                    
+                                $adres = $this->{$prop};
+                                
+                                for ($i=0; $i < 6; $i++) {
+                                    if (isset($adres[$i])) {
+                                        $exAdres[$i] = Base::Sanitize ($adres[$i]);
+                                    }
+                                }
+                                
+                                $curl = curl_init();
+                                curl_setopt_array($curl, [
+                                    CURLOPT_RETURNTRANSFER => 1,
+                                    CURLOPT_URL => "https://maps.googleapis.com/maps/api/geocode/json?address=".urlencode($exAdres[0])."+".urlencode($exAdres[1])."+".urlencode($exAdres[2])."+".urlencode($exAdres[3])."&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys"
+                                ]);
+                                $jsonString = curl_exec($curl);
+                                curl_close($curl);
+                                
+                                $parsedArray = json_decode($jsonString,true);
+                                
+                                if (
+                                    !isset($parsedArray['results'][0]['address_components'][1]['long_name']) || 
+                                    !isset($parsedArray['results'][0]['address_components'][0]['long_name']) || 
+                                    !isset($parsedArray['results'][0]['address_components'][6]['long_name']) || 
+                                    !isset($parsedArray['results'][0]['address_components'][2]['long_name']) || 
+                                    !isset($parsedArray['results'][0]['address_components'][5]['long_name'])
+                                ) {
+                                    return false;
+                                }
+
+                                $this->{$prop} = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
+                                
+                            } else {
+                                return false;
+                            }
+
+                        }
+                    break;
+
+                    case 'date': 
+                        foreach ($rule[0] as $prop) {
+                            
+                            $date = date('d/m/Y:H:i:s', strtotime( implode( '-', $this->{$prop} ) ));
+                            
+                            if ( sizeof( $this->{$prop} ) == 3 ) {
+                                $this->{$prop} = $date;
+                            } else {
+                                return false;
+                            }
+
+                        }
+                    break;
+
+                    default:
+                        // error todo
+                    break;
+
+                }
+            }
+
+            return true;
+        }
+    }
+
     class Sql {
         private static $instance = NULL;
 
