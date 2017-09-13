@@ -101,94 +101,130 @@
             }
         }
 
-        public static function create($var) {
-            if (
-                isset($_POST['user']) &&
-                isset($_POST['user']['name']) && !empty($_POST['user']['name']) &&
-                isset($_POST['user']['password']) && !empty($_POST['user']['password']) &&
-                $_POST['user']['password'] === $_POST['user']['passwordrep'] &&
-                !user::findByName($_POST['user']['name']) &&
+        // public static function create($var) {
+        //     if (
+        //         isset($_POST['user']) &&
+        //         isset($_POST['user']['name']) && !empty($_POST['user']['name']) &&
+        //         isset($_POST['user']['password']) && !empty($_POST['user']['password']) &&
+        //         $_POST['user']['password'] === $_POST['user']['passwordrep'] &&
+        //         !user::findByName($_POST['user']['name']) &&
                 
-                isset($_POST['user']['voornaam']) && !empty($_POST['user']['voornaam']) &&
-                isset($_POST['user']['achternaam']) && !empty($_POST['user']['achternaam']) &&
-                isset($_POST['user']['geslacht']) && !empty($_POST['user']['geslacht']) &&
-                isset($_POST['user']['geboorte_datum']) && sizeof($_POST['user']['geboorte_datum']) == 3 &&
-				isset($_POST['user']['adres']) && sizeof($_POST['user']['adres']) == 4
-            ) {
+        //         isset($_POST['user']['voornaam']) && !empty($_POST['user']['voornaam']) &&
+        //         isset($_POST['user']['achternaam']) && !empty($_POST['user']['achternaam']) &&
+        //         isset($_POST['user']['geslacht']) && !empty($_POST['user']['geslacht']) &&
+        //         isset($_POST['user']['geboorte_datum']) && sizeof($_POST['user']['geboorte_datum']) == 3 &&
+		// 		isset($_POST['user']['adres']) && sizeof($_POST['user']['adres']) == 4
+        //     ) {
 				
-				$exAdres = [
-					'',
-					'',
-					'',
-					''
-				];
+		// 		$exAdres = [
+		// 			'',
+		// 			'',
+		// 			'',
+		// 			''
+		// 		];
 	
-				$adres = $_POST['user']['adres'];
+		// 		$adres = $_POST['user']['adres'];
 				
-				for ($i=0; $i < 6; $i++) {
-					if (isset($adres[$i])) {
-						$exAdres[$i] = Base::Sanitize ($adres[$i]);
-					}
-				}
-				$jsonString = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$exAdres[0]+$exAdres[1],+$exAdres[2]+$exAdres[3]&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys");
-				$parsedArray = json_decode($jsonString,true);
+		// 		for ($i=0; $i < 6; $i++) {
+		// 			if (isset($adres[$i])) {
+		// 				$exAdres[$i] = Base::Sanitize ($adres[$i]);
+		// 			}
+		// 		}
+		// 		$jsonString = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$exAdres[0]+$exAdres[1],+$exAdres[2]+$exAdres[3]&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys");
+		// 		$parsedArray = json_decode($jsonString,true);
 				
-                if (
-					!isset($parsedArray['results'][0]['address_components'][1]['long_name']) || 
-					!isset($parsedArray['results'][0]['address_components'][0]['long_name']) || 
-					!isset($parsedArray['results'][0]['address_components'][6]['long_name']) || 
-					!isset($parsedArray['results'][0]['address_components'][2]['long_name']) || 
-					!isset($parsedArray['results'][0]['address_components'][5]['long_name'])
-				) {
-					Base::Redirect($GLOBALS['config']['base_url'].'users/create/wrongadres');
-				}
+        //         if (
+		// 			!isset($parsedArray['results'][0]['address_components'][1]['long_name']) || 
+		// 			!isset($parsedArray['results'][0]['address_components'][0]['long_name']) || 
+		// 			!isset($parsedArray['results'][0]['address_components'][6]['long_name']) || 
+		// 			!isset($parsedArray['results'][0]['address_components'][2]['long_name']) || 
+		// 			!isset($parsedArray['results'][0]['address_components'][5]['long_name'])
+		// 		) {
+		// 			Base::Redirect($GLOBALS['config']['base_url'].'users/create/wrongadres');
+		// 		}
 				
-				$result = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
+		// 		$result = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
 				
-				if ( $_FILES['pic']['size'] > 0 ) {
-                    $pic = Base::Upload_file( $_FILES['pic'] );
-                    if (!$pic) {
-                        Base::Render('pages/error', [
-                        'type' => 'custom',
-                        'data' => [
-                            0 => 'Error',
-                            1 => 'Could not save image'
-                        ]
-                    ]);
-                    }
-                } else {
-                    $pic = 'assets/img/user.png';
-                }
+		// 		if ( $_FILES['pic']['size'] > 0 ) {
+        //             $pic = Base::Upload_file( $_FILES['pic'] );
+        //             if (!$pic) {
+        //                 Base::Render('pages/error', [
+        //                 'type' => 'custom',
+        //                 'data' => [
+        //                     0 => 'Error',
+        //                     1 => 'Could not save image'
+        //                 ]
+        //             ]);
+        //             }
+        //         } else {
+        //             $pic = 'assets/img/user.png';
+        //         }
                 
-                $salt = Base::Genetate_id();
+        //         $salt = Base::Genetate_id();
 
-                $user = new User(
-                    Base::Genetate_id(),
-                    Base::Sanitize( $_POST['user']['name'] ),
-                    Base::Hash_String( $_POST['user']['password'], $salt ),
-                    $salt,
-                    1,
-                    $pic,
-                    Base::Sanitize( $_POST['user']['voornaam'] ),
-                    Base::Sanitize( $_POST['user']['achternaam'] ),
-                    Base::Sanitize( $_POST['user']['geslacht'] ),
-                    implode( '/', $_POST['user']['geboorte_datum'] ),
-					$result
-                );
+        //         $user = new User(
+        //             Base::Genetate_id(),
+        //             Base::Sanitize( $_POST['user']['name'] ),
+        //             Base::Hash_String( $_POST['user']['password'], $salt ),
+        //             $salt,
+        //             1,
+        //             $pic,
+        //             Base::Sanitize( $_POST['user']['voornaam'] ),
+        //             Base::Sanitize( $_POST['user']['achternaam'] ),
+        //             Base::Sanitize( $_POST['user']['geslacht'] ),
+        //             implode( '/', $_POST['user']['geboorte_datum'] ),
+		// 			$result
+        //         );
 
-                if ($user->save()) {
+        //         if ($user->save()) {
+        //             if ( !isset($_SESSION['user']) ) {
+        //                 $_SESSION['user'] = [
+        //                     "id" => $user->id,
+        //                     "name" => $user->name,
+        //                     "password" => $user->password,
+        //                     "salt" => $user->salt,
+        //                     "role" => $user->role,
+        //                     "pic" => $user->pic
+        //                 ];
+        //             }
+
+        //             if ($_SESSION['user']['role'] == 777) {
+        //                 Base::Redirect($GLOBALS['config']['base_url'].'users/overview');
+        //             } else {
+        //                 Base::Redirect($GLOBALS['config']['base_url']);
+        //             }
+        //         } else {
+        //             Base::Render('pages/error', [
+        //                 'type' => 'custom',
+        //                 'data' => [
+        //                     0 => 'Error',
+        //                     1 => 'Could not save user'
+        //                 ]
+        //             ]);
+        //         }
+        //     } else {
+        //         Base::Render('users/create', [
+		// 			'var' => $var
+		// 		]);
+        //     }
+        // }
+
+        public static function create($var) 
+        {
+            $user = new User();
+
+            if ( $user->load('post') && $user->validate() ) {
+                $user->id = Base::Genetate_id();
+                $user->salt = Base::Genetate_id();
+                $user->role = 1;
+                $user->password = Base::Hash_String( $user->password, $user->salt );
+
+                if ( $user->save() ) {
                     if ( !isset($_SESSION['user']) ) {
-                        $_SESSION['user'] = [
-                            "id" => $user->id,
-                            "name" => $user->name,
-                            "password" => $user->password,
-                            "salt" => $user->salt,
-                            "role" => $user->role,
-                            "pic" => $user->pic
-                        ];
+                        $user->login();
                     }
 
-                    if ($_SESSION['user']['role'] == 777) {
+                    if ( $user->isAdmin() ) {
                         Base::Redirect($GLOBALS['config']['base_url'].'users/overview');
                     } else {
                         Base::Redirect($GLOBALS['config']['base_url']);
@@ -197,14 +233,16 @@
                     Base::Render('pages/error', [
                         'type' => 'custom',
                         'data' => [
-                            0 => 'Error',
-                            1 => 'Could not save user'
+                            'Error',
+                            'Could not save user'
                         ]
                     ]);
                 }
             } else {
+                var_dump( $user->load('post') );var_dump( $user->validate() );exit;
                 Base::Render('users/create', [
-					'var' => $var
+					'var' => $var,
+                    'user' => $user
 				]);
             }
         }

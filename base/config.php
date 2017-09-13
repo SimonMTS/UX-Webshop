@@ -7,9 +7,11 @@
         ],
 
         'Debug' => false,
-        'custom_errors' => true,
+        'custom_errors' => false,
 
         'Default_Title' => 'UXXX',
+
+        'Default_Profile_Pic' => 'assets/user.png',
 
         'base_url' => 'http://localhost/UX-Webshop/',
         // 'base_url' => 'https://simon.aoweb.nl/',

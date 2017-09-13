@@ -192,6 +192,7 @@
                         $this->{$attribute} = $input[$attribute];
                     } else {
                         if ( !isset( $this->{$attribute} ) || empty( $this->{$attribute} )) {
+                            echo'<br><br><br><pre>';var_dump( $attribute );exit;
                             return false;
                         }
                     }
