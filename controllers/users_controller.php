@@ -239,7 +239,6 @@
                     ]);
                 }
             } else {
-                var_dump( $user->load('post') );var_dump( $user->validate() );exit;
                 Base::Render('users/create', [
 					'var' => $var,
                     'user' => $user
