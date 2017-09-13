@@ -179,7 +179,7 @@
 
         private static function addviews() {
             $games = Game::all();
-            if ($_SESSION['user']['id']) {
+            if ( isset($_SESSION['user']['id']) ) {
                 $user_id = $_SESSION['user']['id'];
             } else {
                 $user_id = 'unknown';
