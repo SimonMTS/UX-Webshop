@@ -95,36 +95,51 @@
         private static function addusers() {
             
             $salt = Base::Genetate_id();
-            $users[] = new User(
-                Base::Genetate_id(),
-                'beheerder',
-                Base::Hash_String('beheerder', $salt),
-                $salt,
-                777,
-                'assets/default-img/harambae.jpg',
-                'Simon',
-                'Striekwold',
-                'm',
-                '19/3/1999',
-                'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'
-            );
+            $users[0] = new User();
+            $users[0]->load([
+                'id' => Base::Genetate_id(),
+                'name' => 'beheerder',
+                'password' => Base::Hash_String('beheerder', $salt),
+                'salt' => $salt,
+                'role' => 777,
+                'pic' => 'assets/default-img/harambae.jpg',
+                'voornaam' => 'Simon',
+                'achternaam' => 'Striekwold',
+                'geslacht' => 'm',
+                'geboorte_datum' => '19/03/1999:00:00:00',
+                'adres' => 'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'
+            ]);
             
             for ($i=1; $i < 20; $i++) {
                 $salt = Base::Genetate_id();
 
-                $users[] = new User(
-                    Base::Genetate_id(),
-                    'test'.$i,
-                    Base::Hash_String('test'.$i, $salt),
-                    $salt,
-                    1,
-                    'assets/user.png',
-                    'voornaam'.$i,
-                    'achternaam'.$i,
-                    'm',
-                    '27/6/1993',
-                    'spoorlaan, 12, 9283LK, Oss, Nederland'
-                );
+                $users[$i] = new User();
+                $users[$i]->load([
+                    'id' => Base::Genetate_id(),
+                    'name' => 'test'.$i,
+                    'password' => Base::Hash_String('beheerder', $salt),
+                    'salt' => $salt,
+                    'role' => 1,
+                    'pic' => 'assets/user.png',
+                    'voornaam' => 'voornaam'.$i,
+                    'achternaam' => 'achternaam'.$i,
+                    'geslacht' => 'm',
+                    'geboorte_datum' => '19/03/1999:00:00:00',
+                    'adres' => 'spoorlaan, 12, 9283LK, Oss, Nederland'
+                ]);
+                // $users[] = new User(
+                //     Base::Genetate_id(),
+                //     'test'.$i,
+                //     Base::Hash_String('test'.$i, $salt),
+                //     $salt,
+                //     1,
+                //     'assets/user.png',
+                //     'voornaam'.$i,
+                //     'achternaam'.$i,
+                //     'm',
+                //     '27/6/1993',
+                //     'spoorlaan, 12, 9283LK, Oss, Nederland'
+                // );
             }
 
             foreach ($users as $user) {
