@@ -164,7 +164,7 @@
         }
 
         public static function Genetate_id() {
-            return str_replace('.', '', uniqid('', true));;
+            return str_replace('.', '', uniqid('', true));
         }
 
         public static function Hash_String($string, $salt) {
