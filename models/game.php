@@ -1,21 +1,38 @@
 <?php
 
-    class Game {
+    class Game extends model {
         public $id;
         public $name;
         public $price;
         public $descr;
         public $cover;
+        public $views;
+        public $rating;
+        public $votes;
 
-        public function __construct($id, $name, $price, $descr, $cover, $views = 0, $rating = 0, $votes = 0) {
-            $this->id = $id;
-            $this->name = $name;
-            $this->price = $price;
-            $this->descr = $descr;
-            $this->cover = $cover;
-            $this->views = $views;
-            $this->rating = $rating;
-            $this->votes = $votes;
+        public function rules()
+        {
+            return [
+                [ ['name', 'price', 'descr', 'cover'], 'required' ],
+
+                [ ['name'], 'unique' ],
+                
+                [ ['name', 'descr'], 'string' ],
+
+                [ ['price'], 'integer' ],
+
+                [ ['cover'], 'image', 400 ],
+            ];
+        }
+
+        public function attributes()
+        {
+            return [
+                'name' => 'Naam van de game',
+                'price' => 'Prijs',
+                'descr' => 'beschrijfing',
+                'cover' => 'Cover afbeelding'
+            ];
         }
 		
 		public static function searchByName($text, $limit, $offset) {
@@ -29,26 +46,10 @@
         public static function find($id) {
             $result = Sql::Get('game', 'id', $id);
 
-            if (
-                isset($result[0]['id']) &&
-                isset($result[0]['name']) &&
-                isset($result[0]['price']) &&
-                isset($result[0]['descr']) &&
-                isset($result[0]['cover']) &&
-                isset($result[0]['views']) &&
-                isset($result[0]['rating']) &&
-                isset($result[0]['votes'])
-            ) {
-                return new Game(
-                    $result[0]['id'],
-                    $result[0]['name'],
-                    $result[0]['price'],
-                    $result[0]['descr'],
-                    $result[0]['cover'],
-                    $result[0]['views'],
-                    $result[0]['rating'],
-                    $result[0]['votes']
-                );
+            if ( isset($result[0]) ) {
+                $user = new Game();
+                $user->load( $result[0] );
+                return $user;
             } else {
                 return false;
             }
@@ -62,28 +63,12 @@
         public static function findByName($name) {
             $result = Sql::Get('game', 'name', $name);
 
-            if (
-                isset($result[0]['id']) &&
-                isset($result[0]['name']) &&
-                isset($result[0]['price']) &&
-                isset($result[0]['descr']) &&
-                isset($result[0]['cover']) &&
-                isset($result[0]['views']) &&
-                isset($result[0]['rating']) &&
-                isset($result[0]['votes'])
-            ) {
-                return new Game(
-                    $result[0]['id'],
-                    $result[0]['name'],
-                    $result[0]['price'],
-                    $result[0]['descr'],
-                    $result[0]['cover'],
-                    $result[0]['views'],
-                    $result[0]['rating'],
-                    $result[0]['votes']
-                );
+            if ( isset($result[0]) ) {
+                $user = new Game();
+                $user->load( $result[0] );
+                return $user;
             } else {
-                return $result;
+                return false;
             }
         }
 

@@ -80,31 +80,24 @@
 
         public static function create() {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
-                if (
-                    isset($_POST['game']) &&
-                    isset($_POST['game']['name']) && !empty($_POST['game']['name']) &&
-                    isset($_POST['game']['price']) && !empty($_POST['game']['price']) &&
-                    isset($_POST['game']['descr']) && !empty($_POST['game']['descr']) &&
-                    (isset($_FILES['cover']) && $_FILES['cover']['size'] > 0)
-                ) {
-                    $game = new Game(
-                        Base::Genetate_id(),
-                        Base::Sanitize( $_POST['game']['name'] ),
-                        (int) Base::Sanitize( $_POST['game']['price'] ),
-                        Base::Sanitize( $_POST['game']['descr'] ),
-                        Base::Upload_file( $_FILES['cover'] )
-                    );
+                $game = new Game();
 
-                    if ($game->save()) {
+                if ( $game->load('post') && $game->validate() ) {
+                    $game->id = Base::Genetate_id();
+                    $game->views = 0;
+                    $game->rating = 0;
+                    $game->votes = 0;
+
+                    if ( $game->save() ) {
                         Base::Redirect($GLOBALS['config']['base_url'].'games/overview');
                     } else {
                         Base::Render('pages/error', [
-                    'type' => 'custom',
-                    'data' => [
-                        0 => 'Error',
-                        1 => 'Could not save game'
-                    ]
-                ]);
+                            'type' => 'custom',
+                            'data' => [
+                                0 => 'Error',
+                                1 => 'Could not save game'
+                            ]
+                        ]);
                     }
                 } else {
                     Base::Render('games/create');

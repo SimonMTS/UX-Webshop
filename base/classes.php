@@ -211,7 +211,7 @@
             }
         }
 
-        public function validate() {
+        public function validate() {;
             foreach ( $this->rules() as $rule ) {
                 switch ( $rule[1] ) {
 
@@ -224,8 +224,8 @@
                     break;
 
                     case 'unique':
-                        foreach ($rule[0] as $prop) {
-                            $user = user::findByName( $this->{$prop} );
+                        foreach ($rule[0] as $prop) { //todo make non-class specific
+                            $user = get_class($this)::findByName( $this->{$prop} );
                             if ( $user && $user->id != $this->id ) {
                                 return false;
                             }
@@ -259,8 +259,6 @@
                     case 'integer': 
                         foreach ($rule[0] as $prop) {
                             if ( !is_int( $this->{$prop} ) ) {
-                                return false;
-                            } else {
                                 $this->{$prop} = intval( $this->{$prop} );
                             }
                         }
@@ -280,7 +278,7 @@
                         foreach ($rule[0] as $prop) {
                             
                             if ( $this->{$prop}['size'] > 0 ) {
-                                $this->{$prop} = Base::Upload_file( $_FILES['pic'], $rule[2] );
+                                $this->{$prop} = Base::Upload_file( $_FILES[$prop], $rule[2] );
                                 
                                 if ( !$this->{$prop} ) {
                                     return false;
