@@ -23,7 +23,7 @@
             require_once(__dir__.'/../views/layout/' . Controller::$layout . '.php');
         }
 
-        public static function Upload_file($file) {
+        public static function Upload_file($file, $resolution = null) {
             $target_dir = "assets/img/";
             $target_file = $target_dir . self::Genetate_id().$file['name'] ;
             $uploadOk = 1;
@@ -42,9 +42,17 @@
             if ($uploadOk == 0) {
                 return false;
             } else {
-                self::square_thumbnail_with_proportion($file["tmp_name"], $target_file, 400, 100);
+                if ( isset( $resolution ) ) {
+                    self::square_thumbnail_with_proportion($file["tmp_name"], $target_file, $resolution, 100);
 
-                return $target_file;
+                    return $target_file;
+                } else {
+                    if (move_uploaded_file($file["tmp_name"], $target_file)) {
+                        return $target_file;
+                    } else {
+                        return false;
+                    }
+                }
             }
 
         }
@@ -155,6 +163,22 @@
             ]);
         }
 
+        public static function BreadCrumbs() {
+            $base_url = $GLOBALS['config']['base_url'];
+            $var = explode('/', str_replace($base_url, '',Base::Curl()) );
+
+            if ( empty( $var[0] ) && empty( $var[1] ) ) {
+                $string = '<li class="active">Home</li>';
+            } elseif ( !empty( $var[0] ) && empty( $var[1] ) ) {
+                $string = '<li><a href="' . $base_url . '">Home</a></li>' . '<li class="active">' . ucfirst($var[0]) . '</li>';
+            } else {
+                $string = '<li><a href="' . $base_url . '">Home</a></li>' . '<li><a href="' .$base_url . $var[0] . '">' . ucfirst($var[0]) . '</a></li>' 
+                        . '<li class="active">' . ucfirst($var[1]) . '</li>';
+            }
+            
+            return "<ol class=\"breadcrumb\"> $string </ol>";
+        }
+
         public static function Sanitize($string) {
             return htmlentities($string);
         }
@@ -164,7 +188,7 @@
         }
 
         public static function Genetate_id() {
-            return str_replace('.', '', uniqid('', true));
+            return str_replace('.', '', uniqid('', true));;
         }
 
         public static function Hash_String($string, $salt) {
@@ -182,7 +206,6 @@
     }
 
     class Model {
-
         public function load($input) {
             if ($input == 'post' && isset( $_POST[get_class($this)] )) {
                 $input = array_merge( $_POST[get_class($this)], $_FILES );
@@ -211,7 +234,8 @@
             }
         }
 
-        public function validate() {;
+        public function validate() {
+            //todo
             foreach ( $this->rules() as $rule ) {
                 switch ( $rule[1] ) {
 
@@ -224,9 +248,9 @@
                     break;
 
                     case 'unique':
-                        foreach ($rule[0] as $prop) { //todo make non-class specific
-                            $user = get_class($this)::findByName( $this->{$prop} );
-                            if ( $user && $user->id != $this->id ) {
+                        foreach ($rule[0] as $prop) {
+                            $item = Sql::Get(get_class($this), $prop, $this->{$prop});
+                            if ( $item && $item[0][$prop] != $this->{$prop} ) {
                                 return false;
                             }
                         }
@@ -295,18 +319,18 @@
                             
                             if ( sizeof( $this->{$prop} ) == 4 ) {
                                 $exAdres = [
-                                    '',
-                                    '',
-                                    '',
-                                    ''
+                                	'',
+                                	'',
+                                	'',
+                                	''
                                 ];
                     
                                 $adres = $this->{$prop};
                                 
                                 for ($i=0; $i < 6; $i++) {
-                                    if (isset($adres[$i])) {
-                                        $exAdres[$i] = Base::Sanitize ($adres[$i]);
-                                    }
+                                	if (isset($adres[$i])) {
+                                		$exAdres[$i] = Base::Sanitize ($adres[$i]);
+                                	}
                                 }
                                 
                                 $curl = curl_init();
@@ -316,16 +340,17 @@
                                 ]);
                                 $jsonString = curl_exec($curl);
                                 curl_close($curl);
+                                
                                 $parsedArray = json_decode($jsonString,true);
                                 
                                 if (
-                                    !isset($parsedArray['results'][0]['address_components'][1]['long_name']) || 
-                                    !isset($parsedArray['results'][0]['address_components'][0]['long_name']) || 
-                                    !isset($parsedArray['results'][0]['address_components'][6]['long_name']) || 
-                                    !isset($parsedArray['results'][0]['address_components'][2]['long_name']) || 
-                                    !isset($parsedArray['results'][0]['address_components'][5]['long_name'])
+                                	!isset($parsedArray['results'][0]['address_components'][1]['long_name']) || 
+                                	!isset($parsedArray['results'][0]['address_components'][0]['long_name']) || 
+                                	!isset($parsedArray['results'][0]['address_components'][6]['long_name']) || 
+                                	!isset($parsedArray['results'][0]['address_components'][2]['long_name']) || 
+                                	!isset($parsedArray['results'][0]['address_components'][5]['long_name'])
                                 ) {
-                                    return false;
+                                	return false;
                                 }
 
                                 $this->{$prop} = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
