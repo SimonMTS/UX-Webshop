@@ -26,6 +26,18 @@ $( document ).ready(function() {
         $(".active").css('color', 'gold');
     });
 
+    $("a.del").click(function(e){
+        e.preventDefault();
+
+        document.getElementsByClassName("btn-primary")[0].setAttribute("onclick", "window.location.href='" + this.href + "'");
+
+        $("#myModal").modal();
+
+        document.querySelector('video').playbackRate = 1.4;
+        document.getElementById("myVideo").play();
+        document.getElementById("myAudio").play();
+    });
+
 });
 
 $( window ).resize(function() {

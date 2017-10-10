@@ -43,4 +43,27 @@
 		</div>
 	</div>
 </div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Are you sure about that?</h4>
+      </div>
+      <div class="modal-body">
+        <video  width="100%" id="myVideo">
+  			<source src="<?=$GLOBALS['config']['base_url'] ?>/assets/3NuuOAn.mp4" type="video/mp4">>
+		</video>
+		<audio id="myAudio">
+  			<source src="<?=$GLOBALS['config']['base_url'] ?>/assets/areyousure.mp3" type="audio/mp4">>
+		</audio>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="window.location.href='<?=$GLOBALS['config']['base_url'] ?>'">Yes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
 			
