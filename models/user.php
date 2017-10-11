@@ -52,14 +52,16 @@ class User extends model {
     }
 
     public function login() {
-        $_SESSION['user'] = [
-            "id" => $this->id,
-            "name" => $this->name,
-            "password" => $this->password,
-            "salt" => $this->salt,
-            "role" => $this->role,
-            "pic" => $this->pic
-        ];
+        if ( !self::isAdmin() ) {
+            $_SESSION['user'] = [
+                "id" => $this->id,
+                "name" => $this->name,
+                "password" => $this->password,
+                "salt" => $this->salt,
+                "role" => $this->role,
+                "pic" => $this->pic
+            ];
+        }
     }
 
     public function isAdmin() {

@@ -289,21 +289,25 @@
                 ];
             }
 
+            $i=0;
             foreach ($games as $game) {
-                $game = new Game(
-                    Base::Genetate_id(),
-                    Base::Sanitize( $game['name'] ),
-                    (int) Base::Sanitize( $game['price'] ),
-                    Base::Sanitize( $game['descr'] ),
-                    $game['cover'],
-                    (int) $game['views'],
-                    (int) $game['rating'],
-                    (int) $game['votes']
-                );
+                $gaamee[$i] = new Game();
+                $gaamee[$i]->load([
+                    'id' => Base::Genetate_id(),
+                    'name' => Base::Sanitize( $game['name'] ),
+                    'price' => (int) Base::Sanitize( $game['price'] ),
+                    'descr' => Base::Sanitize( $game['descr'] ),
+                    'cover' => $game['cover'],
+                    'views' => (int) $game['views'],
+                    'rating' => (int) $game['rating'],
+                    'votes' => (int) $game['votes']
+                ]);
 
-                if ( !$game->save() ) {
+                if ( !$gaamee[$i]->save() ) {
                     echo'error<br><br>';exit;
                 }
+
+                $i++;
             }
 
             echo'done adding games<br><br>';

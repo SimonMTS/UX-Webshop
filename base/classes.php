@@ -249,7 +249,7 @@
 
                     case 'unique':
                         foreach ($rule[0] as $prop) {
-                            $item = Sql::Get(get_class($this), $prop, $this->{$prop});
+                            $item = Sql::Get(strtolower(get_class($this)), $prop, $this->{$prop});
                             if ( $item && $item[0][$prop] != $this->{$prop} ) {
                                 return false;
                             }
